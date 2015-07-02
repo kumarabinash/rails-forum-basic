@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-
-gem 'ruby', '2.2.1'
+ruby "2.2.1"
+# gem 'ruby', '2.2.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use mysql as the database for Active Record
@@ -34,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :production do
 	gem 'pg'
-	gem 'rails_12facotr'
+	gem 'rails_12factor'
 end
 
 
