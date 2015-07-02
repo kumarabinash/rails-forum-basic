@@ -1,0 +1,26 @@
+<h3>Post new Question!</h3>
+
+<%= form_for (@forum_question) do |f| %>
+	<div class="group">
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</div>
+
+	<div class="group">
+		<%= f.label :body %>
+		<%= f.text_area :body %>
+	</div>
+
+	<div class="group">
+		<%= f.label :topic_id %>
+
+		<%= f.number_field :topic_id %>
+	</div>
+
+	<div class="group">
+		<%= f.label :user_id %>
+		<%= f.number_field :user_id %>	
+	</div>
+
+	<%= f.submit "Post Article" %>
+<% end %>

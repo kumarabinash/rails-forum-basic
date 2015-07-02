@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701163929) do
+ActiveRecord::Schema.define(version: 20150702050021) do
 
   create_table "forum_answer_comments", force: :cascade do |t|
     t.text     "body",            limit: 65535
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 20150701163929) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  create_table "forum_questions_topics", force: :cascade do |t|
+    t.integer "topic_id",          limit: 4
+    t.integer "forum_question_id", limit: 4
+  end
+
+  add_index "forum_questions_topics", ["forum_question_id"], name: "index_forum_questions_topics_on_forum_question_id", using: :btree
+  add_index "forum_questions_topics", ["topic_id"], name: "index_forum_questions_topics_on_topic_id", using: :btree
 
   create_table "topics", force: :cascade do |t|
     t.string   "name",       limit: 255

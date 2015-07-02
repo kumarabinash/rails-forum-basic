@@ -1,0 +1,2 @@
+module ForumQuestionsHelper
+end

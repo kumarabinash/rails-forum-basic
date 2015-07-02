@@ -1,3 +1,4 @@
 class Topic < ActiveRecord::Base
-	has_many :forum_questions
+	has_and_belongs_to_many :forum_questions
+
 end
