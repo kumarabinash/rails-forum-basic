@@ -13,7 +13,6 @@ body{
 	background: #EDEFF0;
 }
 
-
 h3{
 	margin-bottom: 15px;
 	text-align: center;
@@ -43,8 +42,8 @@ ul.questions li.question:last-child{
 		/*position: absolute;*/
 		/*text-align: right;*/
 		color: #8d9aa5;
-    font-size: 12px;
-    text-align: center;
+	    font-size: 12px;
+	    text-align: center;
 	}
 		.answers-count-number{
 			display: inline-block;
@@ -76,8 +75,6 @@ h5{
 
 
 
-
-
 /*SHOW*/
 
 .forum-question-commenting{
@@ -106,7 +103,6 @@ h5{
 
 
 
-
 .answers{
 	background: #F7F9FA;
 	padding: 30px;
@@ -123,6 +119,11 @@ h5{
 	}
 
 
+.image-circles{
+	border:3px solid white;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	border-radius: 200px;
+}
 
 /*COMMENT*/
 .comment{

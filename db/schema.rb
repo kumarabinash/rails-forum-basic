@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702050021) do
+ActiveRecord::Schema.define(version: 20150703045505) do
 
   create_table "forum_answer_comments", force: :cascade do |t|
     t.text     "body",            limit: 65535
@@ -23,13 +23,14 @@ ActiveRecord::Schema.define(version: 20150702050021) do
 
   create_table "forum_answers", force: :cascade do |t|
     t.text     "body",              limit: 65535
-    t.integer  "thumb_up",          limit: 4
-    t.integer  "thumb_down",        limit: 4
+    t.integer  "thumb_up",          limit: 4,     default: 0
+    t.integer  "thumb_down",        limit: 4,     default: 0
     t.string   "flag",              limit: 255
     t.integer  "forum_question_id", limit: 4
     t.integer  "user_id",           limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "approved",          limit: 4,     default: 0
   end
 
   create_table "forum_question_comments", force: :cascade do |t|
@@ -44,12 +45,13 @@ ActiveRecord::Schema.define(version: 20150702050021) do
     t.string   "title",      limit: 255
     t.text     "body",       limit: 65535
     t.string   "flag",       limit: 255
-    t.integer  "votes",      limit: 4
-    t.integer  "view_count", limit: 4
+    t.integer  "votes",      limit: 4,     default: 0
+    t.integer  "view_count", limit: 4,     default: 0
     t.integer  "topic_id",   limit: 4
     t.integer  "user_id",    limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "solved",     limit: 4,     default: 0
   end
 
   create_table "forum_questions_topics", force: :cascade do |t|
@@ -71,8 +73,9 @@ ActiveRecord::Schema.define(version: 20150702050021) do
     t.string   "last_name",  limit: 255
     t.string   "username",   limit: 255
     t.string   "email",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "image_url",  limit: 255, default: "default.jpg"
   end
 
 end
