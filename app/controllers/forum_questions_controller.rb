@@ -10,7 +10,6 @@ class ForumQuestionsController < ApplicationController
 
 		@forum_answer = ForumAnswer.new
 		@forum_answer_comment = ForumAnswerComment.new
-		@forum_answer_comment.forum_answer_id = @forum_question.id
 	end
 
 	def new

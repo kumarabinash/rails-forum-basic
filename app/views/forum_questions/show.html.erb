@@ -1,4 +1,6 @@
-<h3>Forum</h3>
+<div class="">
+	<h3>Forum</h3>
+</div>
 
 <div class="questions">
 
@@ -43,13 +45,14 @@
 
 <div class="answers">
 
-	<h3>Responses(<%= @forum_question.forum_answers.count %>)</h3>
+	<h4>Responses (<%= @forum_question.forum_answers.count %>)</h4>
+	<div class="answers">
+		<%= render partial: 'forum_answers' %>
+	</div>
 
 	<div class="add-answer">
 		<%= render partial: 'forum_answers/form' %>
 	</div>
 
-	<div class="answers">
-		<%= render partial: 'forum_answers' %>
-	</div>
+	
 </div>

@@ -111,10 +111,16 @@ h5{
 	background: #F7F9FA;
 	padding: 30px;
 }
-.answers h3{
-	text-align: left;
-}
+	.answers h3{
+		text-align: left;
+	}
 
+	.answers ul li{
+		list-style: none;
+		border-bottom: 2px solid white;
+		padding-bottom:15px;
+		padding-top:15px;
+	}
 
 
 

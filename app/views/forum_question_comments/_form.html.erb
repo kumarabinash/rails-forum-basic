@@ -1,10 +1,10 @@
 <%= form_for [@forum_question_comment] do |f| %>
 <div>
-	<a href="#" class="add_comment_link">add a comment</a>
+	<a href="" class="add_comment_link">add a comment</a>
 	<div class="comment">
 		<%= f.number_field :user_id , placeholder: "user_id" %>
 
-		<%= f.hidden_field :forum_question_id, value: @forum_question.id %>
+		<%= f.number_field :forum_question_id %>
 
 		<%= f.text_area :body, placeholder: "Write a comment!" %>
 		
