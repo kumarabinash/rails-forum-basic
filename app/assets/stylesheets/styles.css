@@ -24,6 +24,9 @@ h3{
 	box-shadow: 0 -4px 0 4px #edeff0, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 	z-index: 99;
 	position: relative;
+	transition: all 2.5s;
+	-moz-transition: all 2.5s;
+	-webkit-transition: all 2.5s;
 }
 ul.questions li.question{
 	list-style: none;
@@ -76,7 +79,13 @@ h5{
 	margin-bottom: 5px;
 	color: #3982B5;
 }
-
+.add-comment-link{
+	cursor: pointer;
+	font-size: 14px;
+	margin-top: -10px;
+	line-height: 0;
+	text-decoration: underline;
+}
 
 
 /*SHOW*/

@@ -34,20 +34,21 @@
 		</div>
 
 		<div class="col-1">
-		<ul class="voting">
-			<li>
-				<%= link_to image_tag("up-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes + 1), :method => 'put' %>
-			</li>
-			<li><span class="vote-count"><%= @forum_question.votes %></span></li>
-			<li>
-				<%= link_to image_tag("down-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes - 1), :method => 'put' %>
-			</li>
-		</ul>
+			<ul class="voting">
+				<li>
+					<%= link_to image_tag("up-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes + 1), :method => 'put' %>
+				</li>
+				<li><span class="vote-count"><%= @forum_question.votes %></span></li>
+				<li>
+					<%= link_to image_tag("down-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes - 1), :method => 'put' %>
+				</li>
+			</ul>
 		</div>
 
 	</div>
 
 </div><!-- Question -->
+
 
 <div class="answers">
 

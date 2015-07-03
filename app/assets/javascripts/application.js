@@ -17,7 +17,7 @@
 
 
 $(document).ready(function(){
-	$(".add_comment_link").on("click", function(e){
+	$(".add-comment-link").on("click", function(e){
 		e.preventDefault();
 		$(this).parent().children(".comment").css("display", "block");
 	});

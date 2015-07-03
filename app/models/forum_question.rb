@@ -3,4 +3,12 @@ class ForumQuestion < ActiveRecord::Base
 	has_many :forum_answers
 	belongs_to :user
 	has_many :forum_question_comments
+
+	def slug
+    title.downcase.gsub(" ", "-").gsub(".", "")
+  end
+
+	def to_param
+    "#{id}-#{slug}"
+  end
 end
