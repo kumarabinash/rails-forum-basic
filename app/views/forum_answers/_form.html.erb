@@ -1,0 +1,6 @@
+<%= form_for @forum_answer do |f| %>
+	<%= f.text_area :body, placeholder: "Write your response here..." %>
+	<%= f.number_field :user_id, placeholder: "user_id" %>
+	<%= f.hidden_field :forum_question_id, value: @forum_question.id %>
+	<%= f.submit %>
+<% end %>

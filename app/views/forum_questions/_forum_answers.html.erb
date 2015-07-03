@@ -1,0 +1,50 @@
+<ul>
+	<div class="row">
+	<% @forum_question.forum_answers.each do |answer| %>
+	<li>
+		<div class="col-1">
+			
+		</div>
+		<div class="col-11">
+			<div class="answer-meta">
+				
+				<p>
+					<span class="forum-user"><%= link_to answer.user.first_name %></span>
+					<span class="time"><%= distance_of_time_in_words(answer.created_at, Time.now) %> ago</span>
+				</p>
+
+				<p>
+					<%= answer.body %>
+				</p>
+
+				<div class="forum-question-commenting">
+					<div class="forum_question_comments">
+						<ul>
+							<% answer.forum_answer_comments.each do |comment| %>
+
+							<li>
+								<p>
+									<%= comment.body %>
+								</p>
+
+								<p class="user_time">
+									<span class="forum-user"><%= link_to comment.user.first_name %></span>
+									<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
+								</p>
+								
+							</li>
+							<% end %>
+						</ul>
+					</div>
+
+					<div class="forum-question-comment-form">
+						<%= render partial: 'forum_answer_comments/form' %>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</li>
+	<% end %>
+	</div>
+</ul>

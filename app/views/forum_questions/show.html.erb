@@ -1,31 +1,55 @@
 <h3>Forum</h3>
 
-<ul class="questions">
+<div class="questions">
 
-	<% @forum_questions.each do |question| %>
+	<div class="row">
+		
+		<div class="col-11">
+			<div class="question-meta">
+				
+				<h4><%= @forum_question.title %></h4>
 
-		<li class="question">
-			<div class="row">
-				<div class="col-10">
-					<div class="question-meta">
-						<h5><%= link_to question.title, forum_question_path(question) %></h5>
-						<p>
-							<span class="forum-user"><%= link_to question.user.first_name %></span>
-							<span class="time"><%= distance_of_time_in_words(question.created_at, Time.now) %> ago</span>
-						</p>
+				<p>
+					<span class="forum-user"><%= link_to @forum_question.user.first_name %></span>
+					<span class="time"><%= distance_of_time_in_words(@forum_question.created_at, Time.now) %> ago</span>
+				</p>
+
+				<p>
+					<%= @forum_question.body %>
+				</p>
+
+				<div class="forum-question-commenting">
+					<div class="forum_question_comments">
+						<%= render partial: "forum_question_comments" %>
+					</div>
+
+					<div class="forum-question-comment-form">
+						<%= render partial: "forum_question_comments/form" %>
 					</div>
 				</div>
-
-				<div class="col-2">
-
-					<div class="answers-count">
-						<strong class="answers-count-number"><%= question.forum_answers.count %></strong>
-						<p>Answers</p>
-					</div>
-				</div>
+				
 			</div>
-		</li>
+		</div>
 
-	<% end %>
+		<div class="col-1">
+			<button>+</button><br />
+				<span>23</span><br />
+			<button>-</button>
+		</div>
 
-</ul>
+	</div>
+
+</div><!-- Question -->
+
+<div class="answers">
+
+	<h3>Responses(<%= @forum_question.forum_answers.count %>)</h3>
+
+	<div class="add-answer">
+		<%= render partial: 'forum_answers/form' %>
+	</div>
+
+	<div class="answers">
+		<%= render partial: 'forum_answers' %>
+	</div>
+</div>

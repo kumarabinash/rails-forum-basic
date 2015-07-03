@@ -1,0 +1,16 @@
+<ul>
+<% @forum_question.forum_question_comments.each do |comment| %>
+
+<li>
+	<p>
+		<%= comment.body %>
+	</p>
+
+	<p class="user_time">
+		<span class="forum-user"><%= link_to comment.user.first_name %></span>
+		<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
+	</p>
+	
+</li>
+<% end %>
+</ul>

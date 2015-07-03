@@ -3,6 +3,16 @@ class ForumQuestionsController < ApplicationController
 		@forum_questions = ForumQuestion.all
 	end
 
+	def show
+		@forum_question = ForumQuestion.find(params[:id])
+		@forum_question_comment = ForumQuestionComment.new
+		@forum_question_comment.forum_question_id = @forum_question.id
+
+		@forum_answer = ForumAnswer.new
+		@forum_answer_comment = ForumAnswerComment.new
+		@forum_answer_comment.forum_answer_id = @forum_question.id
+	end
+
 	def new
 		@forum_question = ForumQuestion.new
 	end
@@ -15,6 +25,8 @@ class ForumQuestionsController < ApplicationController
 		@forum_question.save
 		redirect_to forum_questions_path
 	end
+
+
 
 	
 

@@ -64,8 +64,9 @@ ul.questions li.question:last-child{
 	}
 
 	.time{
+		font-size: 13px;
 		font-weight: 300;
-		color:rgba(30, 210, 250, 0.5);
+		color:rgba(30, 250, 60, 0.9);
 	}
 h5{
 	font-size: 17px;
@@ -77,6 +78,50 @@ h5{
 
 
 
+/*SHOW*/
+
+.forum-question-commenting{
+	margin-left: 30px;
+	/*background: red;*/
+}
+.forum_question_comments li{
+	font-size: 14px;
+	list-style: none;
+	border-top: 1px solid rgba(30, 250, 60, 0.3);
+	/*border-bottom: 1px solid rgba(30, 250, 60, 0.3);*/
+}
+.forum_question_comments li:last-child{
+	border-bottom: 1px solid rgba(30, 250, 60, 0.3);
+}
+.forum-question_comments li p{
+	margin-bottom: 0;
+}
+
+.forum_question_comments span.forum-user{
+	font-size: 13px;
+}
+.forum_question_comments span.time{
+	font-size: 13px;
+}
+
+
+
+
+.answers{
+	background: #F7F9FA;
+	padding: 30px;
+}
+.answers h3{
+	text-align: left;
+}
+
+
+
+
+/*COMMENT*/
+.comment{
+	display: none;
+}
 
 
 
