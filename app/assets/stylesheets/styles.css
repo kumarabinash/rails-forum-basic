@@ -21,6 +21,9 @@ h3{
 .questions{
 	padding: 30px;
 	background: white;
+	box-shadow: 0 -4px 0 4px #edeff0, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+	z-index: 99;
+	position: relative;
 }
 ul.questions li.question{
 	list-style: none;
@@ -122,6 +125,8 @@ h5{
 .answers{
 	background: #F7F9FA;
 	padding: 30px;
+	z-index: 98;
+	position: relative;
 }
 	.answers h3{
 		text-align: left;
