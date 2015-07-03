@@ -19,7 +19,7 @@
 				<p>
 					<%= @forum_question.body %>
 				</p>
-
+				<br />
 				<div class="forum-question-commenting">
 					<div class="forum_question_comments">
 						<%= render partial: "forum_question_comments" %>
@@ -34,9 +34,11 @@
 		</div>
 
 		<div class="col-1">
-			<button>+</button><br />
-				<span>23</span><br />
-			<button>-</button>
+		<ul class="voting">
+			<li><a href="" class="up-arrow"><%= image_tag("up-arrow.png", size: "40x40", class: "image-circle") %></a></li>
+			<li><span class="vote-count"><%= @forum_question.votes %></span></li>
+			<li><a href="" class="down-arrow"><%= image_tag("down-arrow.png", size: "40x40", class: "image-circle") %></a></li>
+		</ul>
 		</div>
 
 	</div>
@@ -49,6 +51,8 @@
 	<div class="answers">
 		<%= render partial: 'forum_answers' %>
 	</div>
+
+
 
 	<div class="add-answer">
 		<%= render partial: 'forum_answers/form' %>

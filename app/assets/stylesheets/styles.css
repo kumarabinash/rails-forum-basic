@@ -52,6 +52,7 @@ ul.questions li.question:last-child{
 		    margin-bottom: 5px;
 		    padding-top: 5px;
 		    vertical-align: middle;
+		    text-align: left;
 		}
 
 
@@ -76,6 +77,21 @@ h5{
 
 
 /*SHOW*/
+.voting li{
+	text-align: right;
+	list-style: none;
+}
+	.voting li .vote-count{
+		margin-right:15px;
+	}
+
+.voting-answers li{
+	text-align: left;
+	list-style: none;
+}
+	.voting-answers li .vote-count{
+		margin-left:15px;
+	}
 
 .forum-question-commenting{
 	margin-left: 30px;
@@ -111,8 +127,10 @@ h5{
 		text-align: left;
 	}
 
-	.answers ul li{
+	.answers ul li.answers{
 		list-style: none;
+		margin-left:0;
+		padding-left: 0;
 		border-bottom: 2px solid white;
 		padding-bottom:15px;
 		padding-top:15px;
@@ -120,9 +138,14 @@ h5{
 
 
 .image-circles{
-	border:3px solid white;
+	border: 3px solid white;
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 	border-radius: 200px;
+}
+
+.image-circle{
+	border-radius: 200px;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 /*COMMENT*/
