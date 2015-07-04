@@ -18,7 +18,7 @@ class ForumQuestionsController < ApplicationController
 	end
 
 	def create
-		# fail
+		fail
 		@forum_question = ForumQuestion.new(forum_question_params)
 		@forum_question.save
 		redirect_to forum_questions_path
