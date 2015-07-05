@@ -10,7 +10,7 @@
 					<div class="question-meta">
 						<h5><%= link_to question.title, forum_question_path(question) %></h5>
 						<p>
-							<span class="forum-user"><%= link_to question.user.first_name %></span>
+							<span class="forum-user"><%= link_to question.user.email %></span>
 							<span class="time"><%= distance_of_time_in_words(question.created_at, Time.now) %> ago</span>
 						</p>
 						<ul>

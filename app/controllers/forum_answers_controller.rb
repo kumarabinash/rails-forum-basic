@@ -1,6 +1,9 @@
 class ForumAnswersController < ApplicationController
+	before_action :authenticate_user!, only: [:create]
+
 	def create
 		@forum_answer = ForumAnswer.new(forum_answer_params)
+		@forum_answer.user_id = current_user.id
 		@forum_answer.save
 
 		redirect_to forum_question_path(@forum_answer.forum_question)

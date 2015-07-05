@@ -12,7 +12,7 @@
 				<h4><%= @forum_question.title %></h4>
 
 				<p>
-					<span class="forum-user"><%= link_to @forum_question.user.first_name %></span>
+					<span class="forum-user"><%= link_to @forum_question.user.email %></span>
 					<span class="time"><%= distance_of_time_in_words(@forum_question.created_at, Time.now) %> ago</span>
 				</p>
 

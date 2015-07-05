@@ -1,5 +1,7 @@
 class ForumQuestionsController < ApplicationController
 	before_action :set_forum_question, only: [:show, :edit, :update, :destroy]
+
+	before_action :authenticate_user!, only: [:create, :update, :destroy]
 	def index
 		@forum_questions = ForumQuestion.all
 	end
@@ -18,8 +20,9 @@ class ForumQuestionsController < ApplicationController
 	end
 
 	def create
-		fail
+		# fail
 		@forum_question = ForumQuestion.new(forum_question_params)
+		@forum_question.user_id = current_user.id
 		@forum_question.save
 		redirect_to forum_questions_path
 	end

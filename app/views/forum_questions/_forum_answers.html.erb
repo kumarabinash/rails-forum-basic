@@ -4,14 +4,14 @@
 		<li class="answers">
 		<div class="row">
 			<div class="col-1">
-				<%= image_tag(answer.user.image_url, size: "55x55", class: "image-circle") %>
+				<%= image_tag("default.jpg", size: "55x55", class: "image-circle") %>
 			</div>
 
 			<div class="col-10">
 				<div class="answer-meta">
 					
 					<p>
-						<span class="forum-user"><%= link_to answer.user.first_name %></span>
+						<span class="forum-user"><%= link_to answer.user.email %></span>
 						<span class="time"><%= distance_of_time_in_words(answer.created_at, Time.now) %> ago</span>
 					</p>
 
@@ -31,7 +31,7 @@
 									</p>
 
 									<p class="user_time">
-										<span class="forum-user"><%= link_to comment.user.first_name %></span>
+										<span class="forum-user"><%= link_to comment.user.email %></span>
 										<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
 									</p>
 									

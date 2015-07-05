@@ -2,9 +2,7 @@
 <div>
 	<span class="add-comment-link">add a comment</span>
 	<div class="comment">
-		<%= f.number_field :user_id , placeholder: "user_id" %>
-
-		<%= f.number_field :forum_question_id %>
+		<%= f.hidden_field :forum_question_id %>
 
 		<%= f.text_area :body, placeholder: "Write a comment!" %>
 		

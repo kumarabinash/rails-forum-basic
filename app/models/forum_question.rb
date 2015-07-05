@@ -5,7 +5,7 @@ class ForumQuestion < ActiveRecord::Base
 	has_many :forum_question_comments
 
 	def slug
-    title.downcase.gsub(/[^0-9A-Za-z]_/, '').gsub(" ", "-")
+    title.downcase.gsub(/[^0-9A-Za-z]_/, '').gsub(" ", "-").gsub(".", "")
   end
 
 	def to_param
@@ -22,5 +22,5 @@ class ForumQuestion < ActiveRecord::Base
   # def topic_list=(topic_string)
   # 	topic_name = topic_string.split(",").collect{ |topic| topic.strip.downcase}.uniq
   	
-  end
+  # end
 end
