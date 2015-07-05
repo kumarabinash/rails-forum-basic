@@ -55,13 +55,16 @@
 	<h4>Responses (<%= @forum_question.forum_answers.count %>)</h4>
 	<div class="answers">
 		<%= render partial: 'forum_answers' %>
+
+		<div class="add-answer">
+			<h4>Your Response</h4>
+
+			<%= render partial: 'forum_answers/form' %>
+		</div>
 	</div>
 
 
-
-	<div class="add-answer">
-		<%= render partial: 'forum_answers/form' %>
-	</div>
+	
 
 	
 </div>

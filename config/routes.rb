@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   resources :forum_question_comments
   resources :forum_answers
   resources :forum_answer_comments
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
