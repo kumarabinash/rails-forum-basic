@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :forum_question_comments
   resources :forum_answers
   resources :forum_answer_comments
+  resources :profiles
+  # resources :user_details
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'

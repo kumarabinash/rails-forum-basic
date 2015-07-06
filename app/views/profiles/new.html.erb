@@ -1,0 +1,33 @@
+<%= form_for @profile, :url => profiles_path do |f| %>
+	<div class="group">
+		<%= f.text_field :first_name, placeholder: "First Name" %>
+	</div>
+
+	<div class="group">
+		<%= f.text_field :last_name, placeholder: "Last Name" %>
+	</div>
+
+	<div class="group">
+		<%= f.text_field :username, placeholder: "username" %>
+	</div>
+
+	<div class="group">
+		<%= f.text_field :phone_number, placeholder: "Phone Number" %>
+	</div>
+
+	<div class="group">
+		<%= f.text_area :address, placeholder: "Address" %>
+	</div>
+
+	<div class="group">
+		<%= f.text_field :gender, placeholder: "Gender (m/f)" %>
+	</div>
+
+	<div class="group">
+		<%= f.text_field :image_url, placeholder: "Picture url" %>
+	</div>
+
+	<div class="group">
+		<%= f.submit "Update Profile" %>
+	</div>
+<% end %>
