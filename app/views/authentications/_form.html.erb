@@ -1,0 +1,29 @@
+<%= form_for(@authentication) do |f| %>
+  <% if @authentication.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@authentication.errors.count, "error") %> prohibited this authentication from being saved:</h2>
+
+      <ul>
+      <% @authentication.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :index %><br>
+    <%= f.text_field :index %>
+  </div>
+  <div class="field">
+    <%= f.label :create %><br>
+    <%= f.text_field :create %>
+  </div>
+  <div class="field">
+    <%= f.label :destroy %><br>
+    <%= f.text_field :destroy %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

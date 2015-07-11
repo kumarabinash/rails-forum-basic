@@ -2,15 +2,43 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
+
+# def build_resource(*args)
+#   super
+#   if session[:omniauth]
+#     @user.apply_omniauth(session[:omniauth])
+#     @user.valid?
+#   end
+# end
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    super
+
+  end
+
+
+
+
+
+
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    # super
+    @user = User.create(sign_up_params)
+    if @user.save
+      @user.authentications.create!(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'], :token => session[:omniauth]['credentials']['token'])
+
+      UserDetail.create!(:user_id => @user.id, :first_name => session[:omniauth]['info']['first_name'],
+        :last_name => session[:omniauth]['info']['last_name'],
+        :image_url => session[:omniauth]['info']['image']
+        )
+    end
+
+
+
+    sign_in_and_redirect @user
+  end
 
   # GET /resource/edit
   # def edit

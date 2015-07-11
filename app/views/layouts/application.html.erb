@@ -13,6 +13,7 @@
   <%= link_to "Sign Out", destroy_user_session_path, :method => 'delete' %>
 <% else %>
   <%= link_to "Sign Up", new_user_session_path %>
+  <%= link_to "Login with facebook", user_omniauth_authorize_path(:facebook) %>
 <% end %>
 </div>
 <section class="row">
@@ -42,5 +43,6 @@
 
 <%= "request fullpath is " %>
 <%= debug request.fullpath %>
+<%= debug session %>
 </body>
 </html>

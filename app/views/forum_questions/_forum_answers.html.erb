@@ -4,7 +4,11 @@
 		<li class="answers">
 		<div class="row">
 			<div class="col-1">
-				<%= image_tag("default.jpg", size: "55x55", class: "image-circle") %>
+				<% if answer.user.user_detail.image_url %>
+					<%= image_tag(answer.user.user_detail.image_url, size: "55x55", class: "image-circle") %>
+				<% else %>
+					<%= image_tag("default.png", size: "55x55", class: "image-circle") %>
+				<% end %>
 			</div>
 
 			<div class="col-10">

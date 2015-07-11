@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :authentications
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -9,11 +10,15 @@ Rails.application.routes.draw do
   resources :forum_question_comments
   resources :forum_answers
   resources :forum_answer_comments
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations'
-  }
+  # devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
+  #   controllers: {
+  #   omniauth_callbacks: "authentications",
+  #   registrations: 'registrations'
+  # }
 
+
+devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
+controllers: {omniauth_callbacks: "authentications", registrations: "users/registrations"}
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

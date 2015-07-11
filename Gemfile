@@ -28,8 +28,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 #gem devise for authentication
 gem 'devise'
-
-
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'twitter'
+gem 'fb_graph'
 
 gem 'font-awesome-sass'
 
