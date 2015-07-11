@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Marker type:</strong>
+  <%= @marker.marker_type %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @marker.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @marker.lng %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @marker.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @marker.description %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @marker.address %>
+</p>
+
+<p>
+  <strong>Expiry date:</strong>
+  <%= @marker.expiry_date %>
+</p>
+
+<%= link_to 'Edit', edit_marker_path(@marker) %> |
+<%= link_to 'Back', markers_path %>

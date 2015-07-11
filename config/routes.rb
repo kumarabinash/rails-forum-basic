@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :markers
   resources :authentications
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
   #   omniauth_callbacks: "authentications",
   #   registrations: 'registrations'
   # }
+
+  resources :maps
 
 
 devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},

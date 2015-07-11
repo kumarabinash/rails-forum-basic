@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  marker_type: MyString
+  lat: 9.99
+  lng: 9.99
+  title: MyString
+  description: MyText
+  address: MyText
+  expiry_date: 2015-07-11
+
+two:
+  marker_type: MyString
+  lat: 9.99
+  lng: 9.99
+  title: MyString
+  description: MyText
+  address: MyText
+  expiry_date: 2015-07-11

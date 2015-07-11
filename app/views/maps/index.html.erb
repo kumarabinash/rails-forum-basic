@@ -1,0 +1,14 @@
+<h3>All the markers</h3>
+<ul>
+	<% @markers.each do |marker| %>
+		<li>
+			<%= marker.lat.to_s + " + " + marker.lng.to_s %>
+		</li>
+	<% end %>
+</ul>
+
+<div id="map-canvas"></div>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ90bWT7REWMOZa_QhCfAbLvhfYWFXTBg"></script>
+

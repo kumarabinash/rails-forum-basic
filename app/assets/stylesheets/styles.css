@@ -161,7 +161,8 @@ h5{
 
 .image-circle{
 	border-radius: 200px;
-	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	border:2px solid white;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 /*COMMENT*/
@@ -171,6 +172,13 @@ h5{
 
 
 
+
+
+/*MAP*/
+#map-canvas{
+	width: 100%;
+
+}
 
 /*
 

@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 	has_many :authentications
 	has_one :user_detail
 
+	has_many :markers
+
 	# def apply_omniauth(omni)
 	# 	authentications.build(:provider => omni['provider'],
 	# 	:uid => omni['uid'],

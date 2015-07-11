@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708074341) do
+ActiveRecord::Schema.define(version: 20150711103851) do
 
   create_table "authentications", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
@@ -71,6 +71,19 @@ ActiveRecord::Schema.define(version: 20150708074341) do
 
   add_index "forum_questions_topics", ["forum_question_id"], name: "index_forum_questions_topics_on_forum_question_id", using: :btree
   add_index "forum_questions_topics", ["topic_id"], name: "index_forum_questions_topics_on_topic_id", using: :btree
+
+  create_table "markers", force: :cascade do |t|
+    t.string   "marker_type", limit: 255
+    t.decimal  "lat",                       precision: 12, scale: 7
+    t.decimal  "lng",                       precision: 12, scale: 7
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.text     "address",     limit: 65535
+    t.date     "expiry_date"
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+  end
 
   create_table "topics", force: :cascade do |t|
     t.string   "name",       limit: 255
