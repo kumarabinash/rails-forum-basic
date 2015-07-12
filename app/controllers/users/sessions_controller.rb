@@ -3,6 +3,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
+    @hello = "Hi"
     super
   end
 

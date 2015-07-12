@@ -1,16 +1,13 @@
-*, body, h1, h2, h3, h4, h5, h6, p, a{
-	padding:0;
-	margin: 0;
-}
-h1, h2, h3, h4, h5, h6{
-	font-family: Helvetica;
-	font-weight: 300;
-}
 body{
-	padding: 20px;
+	/*padding: 20px;*/
 	font-family: Helvetica;
 	font-size: 16px;
 	background: #EDEFF0;
+	max-width: 100% !important;
+}
+
+main{
+	padding:30px;
 }
 
 h3{
@@ -171,44 +168,3 @@ h5{
 }
 
 
-
-
-
-/*MAP*/
-#map-canvas{
-	width: 100%;
-
-}
-
-/*
-
-
-.question{
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-.topic-list{
-	padding:8px;
-	border-radius: 90px;
-	border: solid #cbcbcb;
-	position: absolute;
-	font-size: 14px;
-	margin-top: 5px;
-	margin-left: -10px;
-}
-
-hr { border: 0; border-bottom: 1px solid #ccc; background: #999;
-	margin-top: 30px;
- }
-
-
-.sroller{
-	background: white;
-	padding: 10px;
-}
-
-.answer-count{
-	position: relative;
-	text-align: right;
-}*/
