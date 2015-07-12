@@ -4,26 +4,46 @@
   <title>Forum</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <%= csrf_meta_tags %>
 </head>
-<body>
-<div class="nav">
-<% if user_signed_in? %>
-  <%= current_user.email %>
-  <%= link_to "Sign Out", destroy_user_session_path, :method => 'delete' %>
-<% else %>
-  <%= link_to "Sign Up", new_user_session_path %>
-  <%= link_to "Login with facebook", user_omniauth_authorize_path(:facebook) %>
-<% end %>
-</div>
-<section class="row">
-  <main class="col-9">
+<body class="components">
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header mdl-layout--fixed-header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Forum</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+        <%= link_to "Forum", forum_questions_path, class: "mdl-navigation__link" %>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <% if user_signed_in? %>
+          <%= link_to current_user.email, "http://google.com/", class: "mdl-navigation__link" %>
+          <%= link_to "Sign Out", destroy_user_session_path, :method => 'delete' %>
+        <% else %>
+          <%= link_to "Sign Up", new_user_session_path, class: "mdl-navigation__link" %>
+          <%= link_to "Login with facebook", user_omniauth_authorize_path(:facebook), class: "mdl-navigation__link" %>
+        <% end %>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content mdl-components mdl-js-components mdl-cell mdl-cell--12-col">
     <%= yield %>
   </main>
-  <aside class="col-2">
-  <h3>Topics</h3>
-  </aside>
-</section>
+</div>
 
 
 
@@ -38,11 +58,5 @@
 </script>
 <% end %>
 
-<%= "Previous url is - " %>
-<%= debug session[:previous_url] %> <br />
-
-<%= "request fullpath is " %>
-<%= debug request.fullpath %>
-<%= debug session %>
 </body>
 </html>

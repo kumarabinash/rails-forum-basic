@@ -1,5 +1,8 @@
 <%= form_for @forum_answer do |f| %>
-	<%= f.text_area :body, placeholder: "Write your response here..." %>
-	<%= f.hidden_field :forum_question_id, value: @forum_question.id %>
-	<%= f.submit %>
+	<div class="mdl-textfield mdl-js-textfield textfield-demo">
+		<%= f.text_area :body, class: "mdl-textfield__input" %>
+		<%= f.label :body, class: "mdl-textfield__label" %>
+	</div>
+	<%= f.hidden_field :forum_question_id, value: @forum_question.id %><br />
+	<%= f.submit "Submit", :class => "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" %>
 <% end %>

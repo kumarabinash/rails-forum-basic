@@ -5,9 +5,13 @@
 
 		<%= f.hidden_field :forum_answer_id, value: @forum_answer_comment.id %>
 
-		<%= f.text_area :body, placeholder: "Write a comment!" %>
+		<div class="mdl-textfield mdl-js-textfield textfield-demo">
+			<%= f.text_area :body, class: "mdl-textfield__input" %>
+			<%= f.label :body, "Your comment...", class: "mdl-textfield__label" %>
+		</div>
+		<br />
 		
-		<%= f.submit %>
+		<%= f.submit "Comment", class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" %>
 	</div>
 </div>
 <% end %>
