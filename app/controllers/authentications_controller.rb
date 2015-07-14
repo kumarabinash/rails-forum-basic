@@ -10,28 +10,34 @@ class AuthenticationsController < ApplicationController
 
   def facebook
     @omni = request.env["omniauth.auth"]
-    authentication = Authentication.find_by_provider_and_uid(@omni['provider'], @omni['uid'])
-    if authentication
-      flash[:notice] = "Logged in Successfully, found authentication"
-      sign_in_and_redirect User.find(authentication.user_id)
-    elsif User.find_by_email(@omni['info'].email)
-      user = User.find_by_email(@omni['info'].email)
-
-      token = @omni['credentials'].token
-
-      #token_secret is not there in omni['credentials']
-      token_secret = @omni['credentials'].secret
-
-      user.authentications.create!(:provider => @omni['provider'], :uid => @omni['uid'], :token => token, :token_secret => token_secret)
-      flash[:notice] = "Authentication successful. User was already there. Updated authentication."
-      sign_in_and_redirect user
+    if @omni['info'].email == nil
+      #add code to redirect back to facebook for authentication
+      # redirect_to 
     else
+      authentication = Authentication.find_by_provider_and_uid(@omni['provider'], @omni['uid'])
+      if authentication
+        flash[:notice] = "Logged in Successfully, found authentication"
+        sign_in_and_redirect User.find(authentication.user_id)
+      elsif User.find_by_email(@omni['info'].email)
+        user = User.find_by_email(@omni['info'].email)
+
+        token = @omni['credentials'].token
+
+        #token_secret is not there in omni['credentials']
+        token_secret = @omni['credentials'].secret
+
+        user.authentications.create!(:provider => @omni['provider'], :uid => @omni['uid'], :token => token, :token_secret => token_secret)
+        flash[:notice] = "Authentication successful. User was already there. Updated authentication."
+        sign_in_and_redirect user
+      else
       
 
 
-      session[:omniauth] = @omni.except('extra')
-      redirect_to new_user_registration_path
+        session[:omniauth] = @omni.except('extra')
+        redirect_to new_user_registration_path
+      end
     end
+
 
   end
 

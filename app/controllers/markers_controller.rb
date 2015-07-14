@@ -29,8 +29,8 @@ class MarkersController < ApplicationController
 
     respond_to do |format|
       if @marker.save
-        format.html { redirect_to @marker, notice: 'Marker was successfully created.' }
-        format.json { render :show, status: :created, location: @marker }
+        format.html { redirect_to maps_path, notice: 'Marker was successfully created.' }
+        format.json { render json: @marker }
       else
         format.html { render :new }
         format.json { render json: @marker.errors, status: :unprocessable_entity }
