@@ -61,6 +61,7 @@
 
 				marker = this._createMarker(opts);
 
+				// Checking to see if there is an event attached to the object literal passed
 				if(opts.event){
 					this._on({
 						obj: marker,
@@ -68,6 +69,23 @@
 						callback: opts.event.callback
 					});
 				}
+
+				// Checking to see if there is any content passed to the object literal so it can open an infoWindow with
+				// that content
+				if(opts.content){
+					this._on({
+						obj: marker,
+						event: 'click',
+						callback: function(){
+							var infoWindow = new google.maps.InfoWindow({
+								content: opts.content
+							});
+
+							infoWindow.open(this.gMap, marker);
+						}
+					})
+				}
+
 			},
 
 			_createMarker: function(opts){
@@ -120,11 +138,13 @@
 		draggable: true,
 		icon: "http://google-maps-icons.googlecode.com/files/vegetarian.png",
 		event: {
-			name: 'click',
+			name: 'dragend',
 			callback: function(){
-				alert("I'm clicke!");
+				alert("I'm dragged!");
 			}
-		}
+		},
+		content: "Hello there, I'm the infowindow content"
+
 	});
 	// marker1 = new google.maps.Marker({
 	// 	position: {
@@ -133,13 +153,6 @@
 	// 	},
 	// 	map: map.gMap
 	// });
-	map._on({
-		obj: map.gMap,
-		event: 'click',
-		callback: function(){
-			alert("clicked on the map!");
-		}
-	});
 	
 	window.map = map;
 
