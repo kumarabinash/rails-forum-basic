@@ -1,14 +1,203 @@
-<h3>All the markers</h3>
-<ul>
-	<% @markers.each do |marker| %>
-		<li>
-			<%= marker.lat.to_s + " + " + marker.lng.to_s %>
-		</li>
-	<% end %>
-</ul>
 
-<div id="map-canvas"></div>
+<div class="fetchMarkerButtons">
+	<button id="fetchNil" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">None</button>
+	<button id="fetchAll" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">All</button>
+	<button id="fetchHousing" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Housing</button>
+	<button id="fetchStudy" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Study</button>
+	<button id="fetchTravel" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Travel</button>
+
+	<ul id="marker-ul">
+		
+	</ul>
+</div>
+
+<div id="map-canvas">
+	
+</div>
 
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ90bWT7REWMOZa_QhCfAbLvhfYWFXTBg"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPP7GbQmDJN-0dQAk3FPVhynSF3-oeByM"></script>
 
+<script type="text/javascript">
+// Mapper Library
+(function(window, google){
+// This is like a class in OOP
+	var Mapper = (function(){
+	// And this is like the init function
+		function Mapper(element, opts){
+			this.gMap = new google.maps.Map(element, opts);
+		}
+
+		Mapper.prototype = {
+			// FOR SETTING AND GETTING ZOOM LEVELS
+			zoom: function(level){
+				if(level){
+					this.gMap.setZoom(level);
+				} else {
+					return this.gMap.getZoom();
+				}
+			},
+
+
+			// FOR EVENT HANDLING
+			_on: function(opts){
+				var self = this;
+				google.maps.event.addListener(opts.obj, opts.event, function(e){
+					opts.callback.call(self, e);
+					// If we simply pass callback instead of that function, we'll get the map object while calling this
+					// But doing this we will get the Mapster library when we call this
+				});
+			},
+
+
+
+			// ADDING MARKERS TO THE MAP
+			addMarker: function(opts){
+				var marker;
+				opts.position = {
+					lat: opts.lat,
+					lng: opts.lng
+				};
+
+				marker = this._createMarker(opts);
+
+				if(opts.event){
+					this._on({
+						obj: marker,
+						event: opts.event.name,
+						callback: opts.event.callback
+					});
+				}
+			},
+
+			_createMarker: function(opts){
+				opts.map = this.gMap;
+				return new google.maps.Marker(opts);
+			}
+		};
+
+		return Mapper;
+		// This return the whole object
+	}());
+
+	Mapper.create = function(element, opts){
+		return new Mapper(element, opts);
+	};
+
+	window.Mapper = Mapper;
+
+}(window, google));
+
+
+
+
+// MAP OPTIONS
+(function(window, mapper) {
+	mapper.MAP_OPTIONS = {
+		center: {
+			lat: 12.9656536,
+			lng: 77.6067617
+		},
+		zoom: 12,
+		disableDefaultUI: false
+	}
+})(window, window.Mapper || (window.Mapper = {}));
+
+
+
+
+// SCRIPT TO LOAD MAP INTO THE PAGE
+(function(window, mapper){
+	// MAP OPTIONS
+	var options = Mapper.MAP_OPTIONS,
+	
+	element = document.getElementById('map-canvas'),
+	map = mapper.create(element, options);
+	
+	map.addMarker({
+		lat: 12.9656536,
+		lng: 77.6067617,
+		draggable: true,
+		icon: "http://google-maps-icons.googlecode.com/files/vegetarian.png",
+		event: {
+			name: 'click',
+			callback: function(){
+				alert("I'm clicke!");
+			}
+		}
+	});
+	// marker1 = new google.maps.Marker({
+	// 	position: {
+	// 		lat: 12.9656536,
+	// 		lng: 77.6067617
+	// 	},
+	// 	map: map.gMap
+	// });
+	map._on({
+		obj: map.gMap,
+		event: 'click',
+		callback: function(){
+			alert("clicked on the map!");
+		}
+	});
+	
+	window.map = map;
+
+	
+}(window, window.Mapper || (window.Mapper = {})));
+
+
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+// SCRIPT TO LOAD MARKERS FROM DATABASE
+	$(document).ready(function(){
+		$("#fetchNil, #fetchAll, #fetchHousing, #fetchStudy, #fetchTravel").on("click", function(event){
+			event.preventDefault();
+			var btnContent = $(this).context.textContent;
+			fetch(btnContent);
+
+		});
+	});
+
+
+	var fetch = function(btnContent){
+		$.ajax({
+			type: "POST",
+			url: 'maps/fetch',
+			data: {
+				marker_type: btnContent
+			},
+			dataType: 'JSON',
+			success: function(data){
+				console.log(data);
+				var ul = document.getElementById('marker-ul');
+				ul.innerHTML = "";
+				for(var i = 0; i < data.length; i++){
+					li = document.createElement('li');
+					content = document.createTextNode(
+						"Marker Type - " + data[i].marker_type + "\n Title - " + data[i].title + "\nDescription - " + data[i].description + "\n");
+					li.appendChild(content);
+					ul.appendChild(li);
+					window.map.addMarker({
+						lat: parseFloat(data[i].lat),
+						lng: parseFloat(data[i].lng),
+						icon: "http://google-maps-icons.googlecode.com/files/volleyball.png",
+						draggable: true
+						});
+
+				}
+
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+	};
+</script>

@@ -3,11 +3,18 @@ body{
 	font-family: Helvetica;
 	font-size: 16px;
 	background: #EDEFF0;
-	max-width: 100% !important;
+	/*max-width: 100% !important;*/
+	width: 100%;
+	/*background: #fff;*/
 }
 
 main{
-	padding:30px;
+	padding:0;
+
+}
+.mdl-cell{
+	/*margin: 0;*/
+	/*background: #3F51B5;*/
 }
 
 h3{
@@ -167,4 +174,17 @@ h5{
 	display: none;
 }
 
+
+
+	.fetchMarkerButtons{
+		position: absolute;
+		z-index: 99;
+		/*display: none;*/
+	}
+      html, body, #map-canvas { 
+      	height: 100%; margin: 0; padding: 0;
+      }
+      #map-canvas{
+      	width: 100%;
+      }
 
