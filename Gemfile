@@ -35,7 +35,7 @@ gem 'omniauth-facebook'
 gem 'twitter'
 gem 'fb_graph'
 
-gem 'font-awesome-sass'
+# gem 'font-awesome-sass'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
