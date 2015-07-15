@@ -1,0 +1,369 @@
+body{
+	/*padding: 20px;*/
+	font-family: Helvetica;
+	font-size: 16px;
+	background: #EDEFF0;
+	/*max-width: 100% !important;*/
+	width: 100%;
+	/*background: #fff;*/
+}
+
+main{
+	padding:0;
+
+}
+.mdl-cell{
+	/*margin: 0;*/
+	/*background: #3F51B5;*/
+}
+
+h3{
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.questions{
+	padding: 30px;
+	background: white;
+	box-shadow: 0 -4px 0 4px #edeff0, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+	z-index: 99;
+	position: relative;
+	transition: all 2.5s;
+	-moz-transition: all 2.5s;
+	-webkit-transition: all 2.5s;
+}
+ul.questions li.question{
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid rgba(200, 200, 200, 0.5)
+}
+ul.questions li.question:last-child{
+	border-bottom: none;
+}
+	.answers-count{
+		/*position: absolute;*/
+		position: relative;
+		/*background: red;*/
+		/*width: 150px;*/
+		text-align: center;
+		/*position: absolute;*/
+		/*text-align: right;*/
+		color: #8d9aa5;
+	    font-size: 12px;
+	    text-align: center;
+	}
+		.answers-count-number{
+			display: inline-block;
+		    font-size: 24px;
+		    font-weight: 500;
+		    margin-bottom: 5px;
+		    padding-top: 5px;
+		    vertical-align: middle;
+		    text-align: left;
+		}
+
+
+	.forum-user{
+		color: #657380;
+	    font-size: 15px;
+	    font-weight: 500;
+	    margin-right: 5px;
+	}
+
+	.time{
+		font-size: 13px;
+		font-weight: 300;
+		color:rgba(30, 250, 60, 0.9);
+	}
+h5{
+	font-size: 17px;
+	margin-bottom: 5px;
+	color: #3982B5;
+}
+.add-comment-link{
+	cursor: pointer;
+	color:#bbb;
+	font-size: 13px;
+	margin-top: -10px;
+	line-height: 0;
+	text-decoration: underline;
+}
+
+
+/*SHOW*/
+.voting li{
+	text-align: right;
+	list-style: none;
+}
+	.voting li .vote-count{
+		margin-right:15px;
+	}
+
+.voting-answers li{
+	text-align: left;
+	list-style: none;
+}
+	.voting-answers li .vote-count{
+		margin-left:15px;
+	}
+
+.forum-question-commenting{
+	margin-left: 30px;
+	/*background: red;*/
+}
+.forum_question_comments li{
+	font-size: 14px;
+	list-style: none;
+	border-top: 1px solid rgba(30, 250, 60, 0.3);
+	/*border-bottom: 1px solid rgba(30, 250, 60, 0.3);*/
+}
+.forum_question_comments li:last-child{
+	border-bottom: 1px solid rgba(30, 250, 60, 0.3);
+}
+.forum-question_comments li p{
+	margin-bottom: 0;
+}
+
+.forum_question_comments span.forum-user{
+	font-size: 13px;
+}
+.forum_question_comments span.time{
+	font-size: 13px;
+}
+
+
+
+.answers{
+	background: #F7F9FA;
+	padding: 30px;
+	padding-bottom: 15px;
+	z-index: 98;
+	position: relative;
+}
+	.answers h3{
+		text-align: left;
+	}
+
+	.answers ul li.answers{
+		list-style: none;
+		margin-left:0;
+		padding-left: 0;
+		border-bottom: 2px solid white;
+		padding-bottom:15px;
+		padding-top:15px;
+	}
+
+
+.image-circles{
+	border: 3px solid white;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	border-radius: 200px;
+}
+
+.image-circle{
+	border-radius: 200px;
+	border:2px solid white;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+/*COMMENT*/
+.comment{
+	display: none;
+}
+
+
+
+	.fetchMarkerButtons{
+		position: absolute;
+		z-index: 99;
+		/*display: none;*/
+	}
+      html, body, #map-canvas { 
+      	height: 100%; margin: 0; padding: 0;
+      }
+      #map-canvas{
+      	width: 100%;
+      }
+
+   
+
+
+/*Modal Styles*/
+/* Modal Base CSS */
+.scotch-overlay
+{
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+
+    opacity: 0;
+
+    width: 100%;
+    height: 100%;
+
+    -webkit-transition: 1ms opacity ease;
+       -moz-transition: 1ms opacity ease;
+        -ms-transition: 1ms opacity ease;
+         -o-transition: 1ms opacity ease;
+            transition: 1ms opacity ease;
+
+    background: rgba(0,0,0,.6);
+}
+
+.scotch-modal
+{
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+
+    opacity: 0;
+
+    width: 94%;
+    padding: 24px 20px;
+
+    -webkit-transition: 1ms opacity ease;
+       -moz-transition: 1ms opacity ease;
+        -ms-transition: 1ms opacity ease;
+         -o-transition: 1ms opacity ease;
+            transition: 1ms opacity ease;
+
+    -webkit-transform: translate(-50%, -50%);
+       -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+         -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+
+    border-radius: 2px;
+    background: #fff;
+}
+
+.scotch-modal.scotch-open.scotch-anchored
+{
+    top: 20px;
+
+    -webkit-transform: translate(-50%, 0);
+       -moz-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+         -o-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+}
+
+.scotch-modal.scotch-open
+{
+    opacity: 1;
+}
+
+.scotch-overlay.scotch-open
+{
+    opacity: 1;
+
+}
+
+/* Close Button */
+.scotch-close
+{
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 12px;
+
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    padding: 5px 7px 7px;
+
+    cursor: pointer;
+
+    color: #fff;
+    border: 0;
+    outline: none;
+    background: #e74c3c;
+}
+
+.scotch-close:hover
+{
+    background: #c0392b;
+}
+
+/* Default Animation */
+
+.scotch-overlay.fade-and-drop
+{
+    display: block;
+
+    opacity: 0;
+}
+
+.scotch-modal.fade-and-drop
+{
+    top: -300%;
+
+    opacity: 1;
+
+    display: block;
+}
+
+.scotch-modal.fade-and-drop.scotch-open
+{
+    top: 50%;
+
+    -webkit-transition: 500ms top 500ms ease;
+       -moz-transition: 500ms top 500ms ease;
+        -ms-transition: 500ms top 500ms ease;
+         -o-transition: 500ms top 500ms ease;
+            transition: 500ms top 500ms ease;
+}
+
+.scotch-modal.fade-and-drop.scotch-open.scotch-anchored
+{
+
+    -webkit-transition: 500ms top 500ms ease;
+       -moz-transition: 500ms top 500ms ease;
+        -ms-transition: 500ms top 500ms ease;
+         -o-transition: 500ms top 500ms ease;
+            transition: 500ms top 500ms ease;
+}
+
+.scotch-overlay.fade-and-drop.scotch-open
+{
+    top: 0;
+
+    -webkit-transition: 500ms opacity ease;
+       -moz-transition: 500ms opacity ease;
+        -ms-transition: 500ms opacity ease;
+         -o-transition: 500ms opacity ease;
+            transition: 500ms opacity ease;
+
+    opacity: 1;
+}
+
+.scotch-modal.fade-and-drop
+{
+    -webkit-transition: 500ms top ease;
+       -moz-transition: 500ms top ease;
+        -ms-transition: 500ms top ease;
+         -o-transition: 500ms top ease;
+            transition: 500ms top ease;
+}
+
+.scotch-overlay.fade-and-drop
+{
+    -webkit-transition: 500ms opacity 500ms ease;
+       -moz-transition: 500ms opacity 500ms ease;
+        -ms-transition: 500ms opacity 500ms ease;
+         -o-transition: 500ms opacity 500ms ease;
+            transition: 500ms opacity 500ms ease;
+}
+
+
+#modalAddtoMap
+{
+    display: none;
+    z-index: 100;
+}

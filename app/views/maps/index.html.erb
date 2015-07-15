@@ -5,7 +5,7 @@
 	<button id="fetchHousing" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Housing</button>
 	<button id="fetchStudy" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Study</button>
 	<button id="fetchTravel" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Travel</button>
-	<button id="trigger" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+	<button id="triggerModal" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
 	  <i class="material-icons">add</i>
 	</button>
 	<ul id="marker-ul">
@@ -26,409 +26,22 @@
 
 
 
+<% content_for :footer_script_includes do %>
+
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPP7GbQmDJN-0dQAk3FPVhynSF3-oeByM"></script>
+	<%= javascript_include_tag "map/list" %>
+	<%= javascript_include_tag "map/mapper" %>
+	<%= javascript_include_tag "map/map-options" %>
+	<%= javascript_include_tag "map/map-load" %>
+	<%= javascript_include_tag "modal" %>
+<% end %>
 
 
 
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPP7GbQmDJN-0dQAk3FPVhynSF3-oeByM"></script>
+<% content_for :footer_scripts do %>
 
 <script type="text/javascript">
-
-// MARKER MANAGEMENT
-(function(window) {
-	var List = (function(){
-		function List(){
-			this.items = [];
-		}
-
-		List.prototype = {
-
-			add: function(item){
-				this.items.push(item);
-			},
-			remove: function(item){
-				var indexOf = this.items.indexOf(item);
-				if(indexOf !== -1){
-					this.items.splice(indexOf, 1);
-				}
-			},
-			find: function(callback, action){
-				var callbackReturn,
-					items = this.items,
-					length = items.length,
-					matches = [],
-					i = 0;
-				for(; i<length; i++){
-					callbackReturn = callback(items[i], i);
-					if(callbackReturn){
-						matches.push(items[i]);
-					}
-				}
-
-				if(action){
-					action.call(this, matches);
-				}
-
-				return matches;
-			}
-		};
-
-		return List;
-	})();
-
-
-	List.create = function(params){
-		return new List(params);
-	};
-
-	window.List = List;
-})(window);
-
-
-
-
-
-
-
-
-// Mapper Library
-(function(window, google, List){
-// This is like a class in OOP
-	var Mapper = (function(){
-	// And this is like the init function
-		function Mapper(element, opts){
-			this.gMap = new google.maps.Map(element, opts);
-			this.markers = List.create();
-		}
-
-		Mapper.prototype = {
-			// FOR SETTING AND GETTING ZOOM LEVELS
-			zoom: function(level){
-				if(level){
-					this.gMap.setZoom(level);
-				} else {
-					return this.gMap.getZoom();
-				}
-			},
-
-
-			// FOR EVENT HANDLING
-			_on: function(opts){
-				var self = this;
-				google.maps.event.addListener(opts.obj, opts.event, function(e){
-					opts.callback.call(self, e);
-					// If we simply pass callback instead of that function, we'll get the map object while calling this
-					// But doing this we will get the Mapster library when we call this
-				});
-			},
-
-
-
-			// ADDING MARKERS TO THE MAP
-			addMarker: function(opts){
-				var marker;
-				opts.position = {
-					lat: opts.lat,
-					lng: opts.lng
-				};
-
-				marker = this._createMarker(opts);
-				this.markers.add(marker);
-
-				// Checking to see if there is an event attached to the object literal passed
-				if(opts.event){
-					this._on({
-						obj: marker,
-						event: opts.event.name,
-						callback: opts.event.callback
-					});
-				}
-
-				// Checking to see if there is any content passed to the object literal so it can open an infoWindow with
-				// that content
-				if(opts.content){
-					this._on({
-						obj: marker,
-						event: 'click',
-						callback: function(){
-							var infoWindow = new google.maps.InfoWindow({
-								content: opts.content
-							});
-
-							infoWindow.open(this.gMap, marker);
-						}
-					})
-				}
-				return marker;
-
-			},
-			findBy: function(callback){
-				return this.markers.find(callback);
-			},
-
-			removeBy: function(callback){
-				this.markers.find(callback, function(markers){
-					markers.forEach(function(marker){
-						marker.setMap(null); 
-					});
-				});
-			},
-
-			_createMarker: function(opts){
-				opts.map = this.gMap;
-				return new google.maps.Marker(opts);
-			}
-		};
-
-		return Mapper;
-		// This return the whole object
-	}());
-
-	Mapper.create = function(element, opts){
-		return new Mapper(element, opts);
-	};
-
-	window.Mapper = Mapper;
-
-}(window, google, List));
-
-
-
-
-
-
-// MAP OPTIONS
-(function(window, mapper) {
-	mapper.MAP_OPTIONS = {
-		center: {
-			lat: 12.9656536,
-			lng: 77.6067617
-		},
-		zoom: 12,
-		disableDefaultUI: false
-	}
-})(window, window.Mapper || (window.Mapper = {}));
-
-
-
-
-// SCRIPT TO LOAD MAP INTO THE PAGE
-(function(window, mapper){
-	// MAP OPTIONS
-	var options = Mapper.MAP_OPTIONS,
-	
-	element = document.getElementById('map-canvas'),
-	map = mapper.create(element, options);
-	
-	marker = map.addMarker({
-		lat: 12.9656536,
-		lng: 77.6067617,
-		draggable: true,
-		icon: "http://google-maps-icons.googlecode.com/files/vegetarian.png",
-		event: {
-			name: 'dragend',
-			callback: function(){
-				alert("I'm dragged!");
-			}
-		},
-		content: "Hello there, I'm the infowindow content"
-
-	});
-
-	marker2 = map.addMarker({
-		lat: 12.964532,
-		lng: 77.615321,
-		draggable: true,
-		icon: "http://google-maps-icons.googlecode.com/files/vegetarian.png",
-		event: {
-			name: 'dragend',
-			callback: function(){
-				alert("I'm dragged!");
-			}
-		},
-		marker_type: 'Study',
-		content: "Hello there, I'm the infowindow content"
-
-	});
-	// marker1 = new google.maps.Marker({
-	// 	position: {
-	// 		lat: 12.9656536,
-	// 		lng: 77.6067617
-	// 	},
-	// 	map: map.gMap
-	// });
-
-	
-	
-	window.map = map;
-	console.log(map.markers);
-
-	
-}(window, window.Mapper || (window.Mapper = {})));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// FOR THE JQUERY DATEPICKER
-
-
-
-	// MODAL CODE
-	// Create an immediately invoked functional expression to wrap our code
-(function(window) {
-
-  // Define our constructor 
-  window.Modal = function() {
-
-    // Create global element references
-    this.closeButton = null;
-    this.modal = null;
-    this.overlay = null;
-
-    // Determine proper prefix
-    this.transitionEnd = transitionSelect();
-
-    // Define option defaults 
-    var defaults = {
-      autoOpen: false,
-      className: 'fade-and-drop',
-      closeButton: true,
-      content: "",
-      maxWidth: 600,
-      minWidth: 280,
-      overlay: true
-    }
-
-    // Create options by extending defaults with the passed in arugments
-    if (arguments[0] && typeof arguments[0] === "object") {
-      this.options = extendDefaults(defaults, arguments[0]);
-    }
-
-    if(this.options.autoOpen === true) this.open();
-
-  }
-
-  // Public Methods
-
-  Modal.prototype.close = function() {
-    var _ = this;
-    this.modal.className = this.modal.className.replace(" scotch-open", "");
-    this.overlay.className = this.overlay.className.replace(" scotch-open", "");
-    this.modal.addEventListener(this.transitionEnd, function() {
-      _.modal.parentNode.removeChild(_.modal);
-    });
-    this.overlay.addEventListener(this.transitionEnd, function() {
-      if(_.overlay.parentNode) _.overlay.parentNode.removeChild(_.overlay);
-    });
-  }
-
-  Modal.prototype.open = function() {
-    buildOut.call(this);
-    initializeEvents.call(this);
-    window.getComputedStyle(this.modal).height;
-    this.modal.className = this.modal.className +
-      (this.modal.offsetHeight > window.innerHeight ?
-        " scotch-open scotch-anchored" : " scotch-open");
-    this.overlay.className = this.overlay.className + " scotch-open";
-  }
-
-  // Private Methods
-
-  function buildOut() {
-
-    var content, contentHolder, docFrag;
-
-    /*
-     * If content is an HTML string, append the HTML string.
-     * If content is a domNode, append its content.
-     */
-
-    if (typeof this.options.content === "string") {
-      content = this.options.content;
-    } else {
-      content = this.options.content.innerHTML;
-    }
-
-    // Create a DocumentFragment to build with
-    docFrag = document.createDocumentFragment();
-
-    // Create modal element
-    this.modal = document.createElement("div");
-    this.modal.className = "scotch-modal " + this.options.className;
-    this.modal.style.minWidth = this.options.minWidth + "px";
-    this.modal.style.maxWidth = this.options.maxWidth + "px";
-
-    // If closeButton option is true, add a close button
-    if (this.options.closeButton === true) {
-      this.closeButton = document.createElement("button");
-      this.closeButton.className = "scotch-close close-button";
-      this.closeButton.innerHTML = "&times;";
-      this.modal.appendChild(this.closeButton);
-    }
-
-    // If overlay is true, add one
-    if (this.options.overlay === true) {
-      this.overlay = document.createElement("div");
-      this.overlay.className = "scotch-overlay " + this.options.className;
-      docFrag.appendChild(this.overlay);
-    }
-
-    // Create content area and append to modal
-    contentHolder = document.createElement("div");
-    contentHolder.className = "scotch-content";
-    contentHolder.innerHTML = content;
-    this.modal.appendChild(contentHolder);
-
-    // Append modal to DocumentFragment
-    docFrag.appendChild(this.modal);
-
-    // Append DocumentFragment to body
-    document.body.appendChild(docFrag);
-
-  }
-
-  function extendDefaults(source, properties) {
-    var property;
-    for (property in properties) {
-      if (properties.hasOwnProperty(property)) {
-        source[property] = properties[property];
-      }
-    }
-    return source;
-  }
-
-  function initializeEvents() {
-
-    if (this.closeButton) {
-      this.closeButton.addEventListener('click', this.close.bind(this));
-    }
-
-    if (this.overlay) {
-      this.overlay.addEventListener('click', this.close.bind(this));
-    }
-
-  }
-
-  function transitionSelect() {
-    var el = document.createElement("div");
-    if (el.style.WebkitTransition) return "webkitTransitionEnd";
-    if (el.style.OTransition) return "oTransitionEnd";
-    return 'transitionend';
-  }
-
-}(window));
 
 var myContent = "<form>\
 		<div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo'>\
@@ -458,7 +71,7 @@ var myModal = new Modal({
   content: myContent
 });
 
-var triggerButton = document.getElementById('trigger');
+var triggerButton = document.getElementById('triggerModal');
 
 triggerButton.addEventListener('click', function() {
 	myModal.open();
@@ -466,13 +79,14 @@ triggerButton.addEventListener('click', function() {
 	var butt = doc.getElementById('submitMarkerData');
 	butt.addEventListener("click", function(e){
 		e.preventDefault();
-		console.log("Hell butt was pressed!");
 		var address = document.getElementById('form_address').value,
 			description = document.getElementById('form_body').value,
 			title = document.getElementById('form_title').value,
 			expiry_date = document.getElementById('form_expiry_date').value,
 			marker_type = document.getElementById('form_marker_type').value;
 
+
+		// GEOCODING SCRIPT
 		geocoder = new google.maps.Geocoder();
 		geocoder.geocode({'address':address}, function(result, status){
 			if(status == google.maps.GeocoderStatus.OK){
@@ -504,10 +118,11 @@ triggerButton.addEventListener('click', function() {
 						lat: parseFloat(data.lat),
 						lng: parseFloat(data.lng),
 						marker_type: data.marker_type,
-						icon: "http://google-maps-icons.googlecode.com/files/volleyball.png",
+						icon: "images/map-icons/" + data.marker_type + ".png",
 						draggable: true,
 						content: "<div class='title'>" + data.title + "</div><div class='body'>" + data.body  + "</div>"
 					});
+					myModal.close();
 				  },
 				  error: function(data){
 				  	console.log(data);
@@ -530,15 +145,12 @@ triggerButton.addEventListener('click', function() {
 
 
 
-
-
-
-
-
-
-
 // SCRIPT TO LOAD MARKERS FROM DATABASE
 	$(document).ready(function(){
+		// LOAD ALL MARKERS WHEN PAGE GETS LOADED
+		fetch("all");
+
+
 		$("#fetchNil, #fetchAll, #fetchHousing, #fetchStudy, #fetchTravel").on("click", function(event){
 			event.preventDefault();
 			var btnContent = $(this).context.textContent;
@@ -563,16 +175,18 @@ triggerButton.addEventListener('click', function() {
 				var ul = document.getElementById('marker-ul');
 				ul.innerHTML = "";
 				for(var i = 0; i < data.length; i++){
-					li = document.createElement('li');
-					content = document.createTextNode(
-						"Marker Type - " + data[i].marker_type + "\n Title - " + data[i].title + "\nDescription - " + data[i].description + "\n");
-					li.appendChild(content);
-					ul.appendChild(li);
+
+					// FOR TESTIG PURPOSE, CAN BE USED TO LIST MARKES INSTEAD OF SHOWING THEM ON THE MARKER
+					// li = document.createElement('li');
+					// content = document.createTextNode(
+					// 	"Marker Type - " + data[i].marker_type + "\n Title - " + data[i].title + "\nDescription - " + data[i].description + "\n");
+					// li.appendChild(content);
+					// ul.appendChild(li);
 					window.map.addMarker({
 						lat: parseFloat(data[i].lat),
 						lng: parseFloat(data[i].lng),
 						marker_type: data[i].marker_type,
-						icon: "http://google-maps-icons.googlecode.com/files/volleyball.png",
+						icon: "images/map-icons/" + data[i].marker_type + ".png",
 						draggable: true,
 						content: "<div class='title'>" + data[i].title + "</div><div class='body'>" + data[i].body  + "</div>"
 						});
@@ -589,3 +203,5 @@ triggerButton.addEventListener('click', function() {
 
 
 </script>
+
+<% end %>
