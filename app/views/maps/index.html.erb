@@ -8,43 +8,12 @@
 	<button id="trigger" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
 	  <i class="material-icons">add</i>
 	</button>
-
 	<ul id="marker-ul">
 		
 	</ul>
 </div>
 
 
-
-
-	<div id="modalAddtoMap">
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-			<input class="mdl-textfield__input" type="text" id="form_marker_type"/>
-			<label class="mdl-textfield__label" for="sample3">Type of Marker</label>
-		</div><br />
-
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-			<input class="mdl-textfield__input" type="text" id="form_title"/>
-			<label class="mdl-textfield__label" for="sample3">Title</label>
-		</div><br />
-
-		<div class="mdl-textfield mdl-js-textfield textfield-demo">
-			<textarea class="mdl-textfield__input" type="text" rows= "3" id="form_body" ></textarea>
-			<label class="mdl-textfield__label" for="sample5">Content for your marker</label>
-		</div>
-
-		<div class="mdl-textfield mdl-js-textfield textfield-demo">
-			<textarea class="mdl-textfield__input" type="text" rows= "3" id="form_address" ></textarea>
-			<label class="mdl-textfield__label" for="sample5">Address</label>
-		</div>
-
-		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-			<input class="mdl-textfield__input" type="text" id="form_expiry_date datepicker"/>
-			<label class="mdl-textfield__label" for="sample3">Expiry Date</label>
-		</div>
-
-		<button id="submitMarkerData" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add to Map</button>
-	</div>
 
 
 
@@ -54,9 +23,17 @@
 </div>
 
 
+
+
+
+
+
+
+
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPP7GbQmDJN-0dQAk3FPVhynSF3-oeByM"></script>
 
 <script type="text/javascript">
+
 // MARKER MANAGEMENT
 (function(window) {
 	var List = (function(){
@@ -292,13 +269,17 @@
 
 
 
-</script>
 
 
 
 
 
-<script type="text/javascript">
+
+
+
+
+
+
 
 // FOR THE JQUERY DATEPICKER
 
@@ -306,10 +287,10 @@
 
 	// MODAL CODE
 	// Create an immediately invoked functional expression to wrap our code
-(function() {
+(function(window) {
 
   // Define our constructor 
-  this.Modal = function() {
+  window.Modal = function() {
 
     // Create global element references
     this.closeButton = null;
@@ -344,8 +325,7 @@
   Modal.prototype.close = function() {
     var _ = this;
     this.modal.className = this.modal.className.replace(" scotch-open", "");
-    this.overlay.className = this.overlay.className.replace(" scotch-open",
-      "");
+    this.overlay.className = this.overlay.className.replace(" scotch-open", "");
     this.modal.addEventListener(this.transitionEnd, function() {
       _.modal.parentNode.removeChild(_.modal);
     });
@@ -448,9 +428,31 @@
     return 'transitionend';
   }
 
-}());
+}(window));
 
-var myContent = document.getElementById('modalAddtoMap');
+var myContent = "<form>\
+		<div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo'>\
+			<input class='mdl-textfield__input' type='text' id='form_marker_type'/>\
+			<label class='mdl-textfield__label' for='sample3'>Type of Marker</label>\
+		</div><br />\
+		<div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo'>\
+			<input class='mdl-textfield__input' type='text' id='form_title'/>\
+			<label class='mdl-textfield__label' for='sample3'>Title</label>\
+		</div><br />\
+		<div class='mdl-textfield mdl-js-textfield textfield-demo'>\
+			<textarea class='mdl-textfield__input' type='text' rows= '3' id='form_body' ></textarea>\
+			<label class='mdl-textfield__label' for='sample5'>Content for your marker</label>\
+		</div>\
+		<div class='mdl-textfield mdl-js-textfield textfield-demo'>\
+			<textarea class='mdl-textfield__input' type='text' rows= '3' id='form_address' ></textarea>\
+			<label class='mdl-textfield__label' for='sample5'>Address</label>\
+		</div>\
+		<div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo'>\
+			<input class='mdl-textfield__input' type='text' id='form_expiry_date'/>\
+			<label class='mdl-textfield__label' for='sample3'>Expiry Date</label>\
+		</div>\
+	</form>\
+	<button id='submitMarkerData'>Button</button>";
 
 var myModal = new Modal({
   content: myContent
@@ -459,7 +461,65 @@ var myModal = new Modal({
 var triggerButton = document.getElementById('trigger');
 
 triggerButton.addEventListener('click', function() {
-  myModal.open();
+	myModal.open();
+	var doc = document;
+	var butt = doc.getElementById('submitMarkerData');
+	butt.addEventListener("click", function(e){
+		e.preventDefault();
+		console.log("Hell butt was pressed!");
+		var address = document.getElementById('form_address').value,
+			description = document.getElementById('form_body').value,
+			title = document.getElementById('form_title').value,
+			expiry_date = document.getElementById('form_expiry_date').value,
+			marker_type = document.getElementById('form_marker_type').value;
+
+		geocoder = new google.maps.Geocoder();
+		geocoder.geocode({'address':address}, function(result, status){
+			if(status == google.maps.GeocoderStatus.OK){
+				var location = result[0].geometry.location;
+				var lat = String(location.lat());
+				var lng = String(location.lng());
+				var dotlat = lat.indexOf(".");
+				var dotlng = lng.indexOf(".");
+				lat = parseFloat(lat.substring(0, dotlat+7));
+				lng = parseFloat(lng.substring(0, dotlng+7));
+				$.ajax({                    
+				  url: '<%= markers_path %>',     
+				  type: 'post', // performing a POST request
+				  data : {
+				  	marker: {
+				  		address: address,
+					  	title: title, 
+					  	marker_type: marker_type,
+					  	description: description,
+					  	lat: lat,
+					  	lng: lng,
+					  	expiry_date: expiry_date
+				  	}
+				    // will be accessible in $_POST['data1']
+				  },
+				  dataType: 'JSON',                   
+				  success: function(data){
+				  	window.map.addMarker({
+						lat: parseFloat(data.lat),
+						lng: parseFloat(data.lng),
+						marker_type: data.marker_type,
+						icon: "http://google-maps-icons.googlecode.com/files/volleyball.png",
+						draggable: true,
+						content: "<div class='title'>" + data.title + "</div><div class='body'>" + data.body  + "</div>"
+					});
+				  },
+				  error: function(data){
+				  	console.log(data);
+				  }
+				});
+				
+			} else {
+				console.log("not successful");
+			}
+		});
+
+	});
 });
 
 
@@ -525,59 +585,6 @@ triggerButton.addEventListener('click', function() {
 			}
 		});
 	};
-
-
-
-
-
-$("#submitMarkerData").on("click", function(){
-	var doc = document;
-	var address = doc.getElementById('form_address').value,
-			description = doc.getElementById('form_body').value,
-			title = doc.getElementById('form_title').value,
-			expiry_date = doc.getElementById('form_expiry_date').value,
-			marker_type = doc.getElementById('form_marker_type').value;
-
-	geocoder = new google.maps.Geocoder();
-	geocoder.geocode({'address':address}, function(result, status){
-		if(status == google.maps.GeocoderStatus.OK){
-			var location = result[0].geometry.location;
-			var lat = String(location.lat());
-			var lng = String(location.lng());
-			var dotlat = lat.indexOf(".");
-			var dotlng = lng.indexOf(".");
-			lat = parseFloat(lat.substring(0, dotlat+7));
-			lng = parseFloat(lng.substring(0, dotlng+7));
-			$.ajax({                    
-			  url: '<%= markers_path %>',     
-			  type: 'post', // performing a POST request
-			  data : {
-			  	address: address,
-			  	title: title, 
-			  	marker_type: marker_type,
-			  	description: description,
-			  	lat: lat,
-			  	lng: lng,
-			  	expiry_date: expiry_date
-
-
-			    // will be accessible in $_POST['data1']
-			  },
-			  dataType: 'JSON',                   
-			  success: function(data){
-			    console.log(data);
-			  } 
-			});
-			
-			// alert('lat is ' + lat + " lng is " + lng);
-		} else {
-			console.log("not successful");
-		}
-});
-
-
-
-
 
 
 

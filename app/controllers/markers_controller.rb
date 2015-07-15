@@ -25,6 +25,15 @@ class MarkersController < ApplicationController
   # POST /markers
   # POST /markers.json
   def create
+    # fail
+
+    # @marker = marker_params
+
+    # respond_to do |format|
+    #   format.json { render json: @marker }
+    # end
+
+
     @marker = current_user.markers.new(marker_params)
 
     respond_to do |format|

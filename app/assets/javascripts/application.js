@@ -13,8 +13,7 @@
 //= require jquery
 
 //= require jquery_ujs
-
-//= require_tree .
+//= require material
 
 
 $(document).ready(function(){
