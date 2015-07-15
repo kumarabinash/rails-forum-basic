@@ -1,5 +1,5 @@
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPP7GbQmDJN-0dQAk3FPVhynSF3-oeByM"></script>
-<script type="text/javascript">
+
+
 // MARKER MANAGEMENT
 (function(window) {
 	var List = (function(){
