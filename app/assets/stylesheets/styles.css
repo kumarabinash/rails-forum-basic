@@ -8,14 +8,29 @@ body{
 	/*background: #fff;*/
 }
 
+ul, ol{
+	padding-left: 0;
+}
+
 main{
+	/*background: red;*/
 	margin: 0;
 	padding: 0;
+}
+
+
+
+.mdl-cell--12-col {
+    width: 100%;
 }
 
 .mdl-cell{
 	margin: 0;
 	/*background: #3F51B5;*/
+}
+
+.sidebar{
+	padding:20px;
 }
 
 h3{
@@ -24,7 +39,7 @@ h3{
 }
 
 .questions{
-	padding: 30px;
+	padding: 20px;
 	background: white;
 	box-shadow: 0 -4px 0 4px #edeff0, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 	z-index: 99;
@@ -32,11 +47,12 @@ h3{
 	transition: all 2.5s;
 	-moz-transition: all 2.5s;
 	-webkit-transition: all 2.5s;
+	line-height: 20px;
 }
 ul.questions li.question{
 	list-style: none;
-	margin-left: 0;
-	padding-left: 0;
+	/*margin-left: 0;*/
+	/*padding-left: 0;*/
 	margin-top: 15px;
 	margin-bottom: 15px;
 	border-bottom: 1px solid rgba(200, 200, 200, 0.5)
@@ -52,6 +68,7 @@ ul.questions li.question:last-child{
 		text-align: center;
 		/*position: absolute;*/
 		/*text-align: right;*/
+		margin-top:15px;
 		color: #8d9aa5;
 	    font-size: 12px;
 	    text-align: center;
@@ -135,6 +152,27 @@ h5{
 	font-size: 13px;
 }
 
+ul.questions{
+	padding-top:10px;
+	padding-bottom: 20px;
+	margin-left: 0;
+	padding-left: 20px;
+}
+li.question{
+	margin-left: 0;
+	padding-left: 0;
+}
+li.question .image-circle{
+	margin-top: 15px;
+}
+
+
+/*LINE HEIGHT*/
+.forum_question_comments p{
+	line-height: 8px;
+	margin-top: 5px;
+}
+
 
 
 .answers{
@@ -143,12 +181,13 @@ h5{
 	padding-bottom: 15px;
 	z-index: 98;
 	position: relative;
+	line-height: 20px;
 }
 	.answers h3{
 		text-align: left;
 	}
 
-	.answers ul li.answers{
+	.answers ul li.answer{
 		list-style: none;
 		margin-left:0;
 		padding-left: 0;

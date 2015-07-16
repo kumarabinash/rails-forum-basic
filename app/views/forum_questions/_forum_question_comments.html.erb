@@ -1,15 +1,26 @@
 <ul>
 <% @forum_question.forum_question_comments.each do |comment| %>
-
 <li>
-	<p>
-		<%= comment.body %>
-	</p>
 
-	<p class="user_time">
-		<span class="forum-user"><%= link_to comment.user.email %></span>
-		<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
-	</p>
+	<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--1-col">
+			<% if comment.user.user_detail %>
+				<% if comment.user.user_detail.image_url %>
+					<%= image_tag(comment.user.user_detail.image_url, size: "30x30", class: "image-circle") %>
+				<% end %>
+			<% else %>
+				<%= image_tag("default.jpg", size: "30x30", class: "image-circle") %>
+			<% end %>
+		</div>
+		<div class="mdl-cell mdl-cell--11-col">
+			<%= comment.body %>
+
+			<div class="user_time">
+				<span class="forum-user"><%= link_to comment.user.email %></span>
+				<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
+			</div>
+		</div>
+	</div>
 	
 </li>
 <% end %>

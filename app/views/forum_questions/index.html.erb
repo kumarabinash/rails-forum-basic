@@ -1,31 +1,52 @@
-<ul class="questions">
-	<% @forum_questions.each do |question| %>
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--9-col">
+		<ul class="questions">
+			<% @forum_questions.each do |question| %>
 
-		<li class="question">
-			<div class="row">
-				<div class="col-10">
-					<div class="question-meta">
-						<h5><%= link_to question.title, forum_question_path(question) %></h5>
-						<p>
-							<span class="forum-user"><%= link_to question.user.email %></span>
-							<span class="time"><%= distance_of_time_in_words(question.created_at, Time.now) %> ago</span>
-						</p>
-						<ul>
+				<li class="question">
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--1-col" style="">
+							<% if question.user.user_detail %>
+								<% if question.user.user_detail.image_url %>
+									<%= image_tag(question.user.user_detail.image_url, size: "55x55", class: "image-circle") %>
+								<% end %>
+							<% else %>
+								<%= image_tag("default.jpg", size: "55x55", class: "image-circle") %>
+							<% end %>
+						</div>
+						<div class="mdl-cell mdl-cell--10-col">
+							<div class="question-meta">
+								<h5><%= link_to question.title, forum_question_path(question) %></h5>
+								<p>
+									<span class="forum-user"><%= link_to question.user.email %></span>
+									<span class="time"><%= distance_of_time_in_words(question.created_at, Time.now) %> ago</span>
+								</p>
+							</div>
+						</div>
 
-						</ul>
+						<div class="mdl-cell mdl-cell--1-col">
+							<div class="answers-count">
+								<strong class="answers-count-number"><%= question.forum_answers.count %></strong>
+								<p>Answers</p>
+							</div>
+						</div>
+
 					</div>
-				</div>
 
-				<div class="col-2">
+				</li>
 
-					<div class="answers-count">
-						<strong class="answers-count-number"><%= question.forum_answers.count %></strong>
-						<p>Answers</p>
-					</div>
-				</div>
-			</div>
-		</li>
+			<% end %>
 
-	<% end %>
-
-</ul>
+		</ul>
+	</div>
+	<div class="mdl-cell mdl-cell--3-col sidebar">
+		<div>
+			<%= link_to "Ask a New Question", new_forum_question_path %>
+		</div>
+		<ul>
+			<li>topic1</li>
+			<li>topic2</li>
+			<li>topic3</li>
+		</ul>
+	</div>
+</div>

@@ -1,63 +1,85 @@
 <ul>
 	<% @forum_question.forum_answers.each do |answer| %>
 		<% @forum_answer_comment.id = answer.id %>
-		<li class="answers">
-		<div class="row">
-			<div class="col-1">
-				<% if answer.user.user_detail.image_url %>
-					<%= image_tag(answer.user.user_detail.image_url, size: "55x55", class: "image-circle") %>
-				<% else %>
-					<%= image_tag("default.png", size: "55x55", class: "image-circle") %>
-				<% end %>
-			</div>
+		<li class="answer">
+			<div class="mdl-grid">
+				<div class="mdl-cell mdl-cell--1-col">
 
-			<div class="col-10">
-				<div class="answer-meta">
+					<% if answer.user.user_detail %>
+						<% if answer.user.user_detail.image_url %>
+							<%= image_tag(answer.user.user_detail.image_url, size: "50x50", class: "image-circle") %>
+						<% end %>
+					<% else %>
+						<%= image_tag("default.jpg", size: "55x55", class: "image-circle") %>
+					<% end %>
+				</div>
+
+				<div class="mdl-cell mdl-cell--10-col">
+					<div class="answer-meta">
 					
-					<p>
-						<span class="forum-user"><%= link_to answer.user.email %></span>
-						<span class="time"><%= distance_of_time_in_words(answer.created_at, Time.now) %> ago</span>
-					</p>
+						<p>
+							<span class="forum-user"><%= link_to answer.user.email %></span>
+							<span class="time"><%= distance_of_time_in_words(answer.created_at, Time.now) %> ago</span>
+						</p>
 
-					<p>
-						<%= answer.body %>
-					</p>
-					<br />
-
-					<div class="forum-question-commenting">
-						<div class="forum_question_comments">
-							<ul>
-								<% answer.forum_answer_comments.each do |comment| %>
-
-								<li>
-									<p>
-										<%= comment.body %>
-									</p>
-
-									<p class="user_time">
-										<span class="forum-user"><%= link_to comment.user.email %></span>
-										<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
-									</p>
-									
-								</li>
-								<% end %>
-							</ul>
+						<div>
+						<%= simple_format(answer.body) %>
 						</div>
 
-						<div class="forum-question-comment-form">
-							<%= render partial: 'forum_answer_comments/form' %>
+						<div class="forum-question-commenting">
+							<div class="forum_question_comments">
+								<ul>
+									<% answer.forum_answer_comments.each do |comment| %>
+									<li>
+
+										<div class="mdl-grid">
+											<div class="mdl-cell mdl-cell--1-col">
+												<% if comment.user.user_detail %>
+													<% if comment.user.user_detail.image_url %>
+														<%= image_tag(comment.user.user_detail.image_url, size: "30x30", class: "image-circle") %>
+													<% end %>
+												<% else %>
+													<%= image_tag("default.jpg", size: "30x30", class: "image-circle") %>
+												<% end %>
+											</div>
+											<div class="mdl-cell mdl-cell--11-col">
+												<%= comment.body %>
+
+												<div class="user_time">
+													<span class="forum-user"><%= link_to comment.user.email %></span>
+													<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
+												</div>
+											</div>
+										</div>
+										
+									</li>
+									<% end %>
+								</ul>
+							</div>
+
+							<div class="forum-question-comment-form">
+								<%= render partial: 'forum_answer_comments/form' %>
+							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="mld-cell mdl-cell--1-col">
+					<ul class="voting">
+						<li><a href="" class="up-arrow"><%= image_tag("up-arrow.png", size: "40x40", class: "image-circle") %></a></li>
+						<li><span class="vote-count"></span></li>
+						<li><a href="" class="down-arrow"><%= image_tag("down-arrow.png", size: "40x40", class: "image-circle") %></a></li>
+					</ul>
+				</div>
 			</div>
-			<div class="col-1">
-				<ul class="voting">
-					<li><a href="" class="up-arrow"><%= image_tag("up-arrow.png", size: "40x40", class: "image-circle") %></a></li>
-					<li><span class="vote-count"></span></li>
-					<li><a href="" class="down-arrow"><%= image_tag("down-arrow.png", size: "40x40", class: "image-circle") %></a></li>
-				</ul>
-			</div>
-		</div>
 		</li>
 	<% end %>
+
+
+	<div class="mdl-grid add-answer">
+		<h4 class="mdl-cell mdl-cell--12-col">Your Response</h4>
+
+		<%= render partial: 'forum_answers/form' %>
+	</div>
+
 </ul>

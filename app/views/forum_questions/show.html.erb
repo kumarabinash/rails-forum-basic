@@ -1,66 +1,68 @@
-<div class="questions">
-
-	<div class="row">
-		
-		<div class="col-11">
-			<div class="question-meta">
-				
-				<h4><%= @forum_question.title %></h4>
-
-				<p>
-					<span class="forum-user"><%= link_to @forum_question.user.email %></span>
-					<span class="time"><%= distance_of_time_in_words(@forum_question.created_at, Time.now) %> ago</span>
-				</p>
-
-				<p>
-					<%= simple_format(@forum_question.body) %>
-				</p>
+<div class="mdl-grid">
+	<div class="mld-cell mdl-cell--9-col">
+		<div class="questions">
+			<div class="mdl-grid">
+				<div class="mdl-cell mdl-cell--1-col" style="">
 				<br />
-				<div class="forum-question-commenting">
-					<div class="forum_question_comments">
-						<%= render partial: "forum_question_comments" %>
-					</div>
+					<% if @forum_question.user.user_detail %>
+						<% if @forum_question.user.user_detail.image_url %>
+							<%= image_tag(@forum_question.user.user_detail.image_url, size: "55x55", class: "image-circle") %>
+						<% end %>
+					<% else %>
+						<%= image_tag("default.jpg", size: "55x55", class: "image-circle") %>
+					<% end %>
+				</div>
 
-					<div class="forum-question-comment-form">
-						<%= render partial: "forum_question_comments/form" %>
+				<div class="mdl-cell mdl-cell--10-col">
+					<div class="question-meta">
+						<h5><%= link_to @forum_question.title, forum_question_path(@forum_question) %></h5>
+						<div class="forum-question-body">
+							<%= simple_format(@forum_question.body) %>
+						</div>
+						<p>
+							<span class="forum-user"><%= link_to @forum_question.user.email %></span>
+							<span class="time"><%= distance_of_time_in_words(@forum_question.created_at, Time.now) %> ago</span>
+						</p>
+						<div class="forum-question-commenting">
+							<div class="forum_question_comments">
+								<%= render partial: "forum_question_comments" %>
+							</div>
+
+							<div class="forum-question-comment-form">
+								<%= render partial: "forum_question_comments/form" %>
+							</div>
+						</div>
 					</div>
 				</div>
-				
+
+				<div class="mld-cell mdl-cell--1-col">
+					<ul class="voting">
+						<li>
+							<%= link_to image_tag("up-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes + 1), :method => 'put' %>
+						</li>
+						<li><span class="vote-count"><%= @forum_question.votes %></span></li>
+						<li>
+							<%= link_to image_tag("down-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes - 1), :method => 'put' %>
+						</li>
+					</ul>
+				</div>
+
 			</div>
-		</div>
+		</div> <!-- .questions -->
 
-		<div class="col-1">
-			<ul class="voting">
-				<li>
-					<%= link_to image_tag("up-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes + 1), :method => 'put' %>
-				</li>
-				<li><span class="vote-count"><%= @forum_question.votes %></span></li>
-				<li>
-					<%= link_to image_tag("down-arrow.png", size: "40x40", class: "image-circle"), forum_question_path(votes: @forum_question.votes - 1), :method => 'put' %>
-				</li>
-			</ul>
-		</div>
 
+		<div class="answers">
+			<h4>Responses (<%= @forum_question.forum_answers.count %>)</h4>
+			<%= render partial: 'forum_answers' %>
+		</div>
+	</div> <!-- 9-col ends -->
+
+	<div class="mdl-cell mdl-cell--3-col" style="padding:20px;">
+		<ul>
+			<li>topic1</li>
+			<li>topic2</li>
+			<li>topic3</li>
+		</ul>
 	</div>
 
-</div><!-- Question -->
-
-
-<div class="answers">
-
-	<h4>Responses (<%= @forum_question.forum_answers.count %>)</h4>
-	<div class="answers">
-		<%= render partial: 'forum_answers' %>
-
-		<div class="add-answer">
-			<h4>Your Response</h4>
-
-			<%= render partial: 'forum_answers/form' %>
-		</div>
-	</div>
-
-
-	
-
-	
 </div>

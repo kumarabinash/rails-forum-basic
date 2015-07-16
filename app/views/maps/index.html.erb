@@ -70,7 +70,7 @@ var myContent = "<div><form>\
 			<label class='mdl-textfield__label' for='sample3'>Expiry Date</label>\
 		</div>\
 	</form>\
-	<button id='submitMarkerData' class'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Button</button> </div>";
+	<button id='submitMarkerData' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Add Marker</button> </div>";
 
 var myModal = new Modal({
   content: myContent
@@ -199,37 +199,7 @@ var openModal = function(modal){
 					  		window.location = "<%= new_user_session_path %>";
 					  	}
 				  	}
-				  	
-				 //  	var marker = {
-				  	// 	"address": address,
-					  // 	"title": title, 
-					  // 	"marker_type": marker_type,
-					  // 	"description": description,
-					  // 	"lat": lat,
-					  // 	"lng": lng,
-					  // 	"expiry_date": expiry_date
-				  	// }
-				 //  	// console.log(data.responseText);
-				 //  	// console.log(data.responseText.error);
-				  	
-				 //  	// console.log(marker);
-				 //  	sessionStorage.setItem('marker', marker);
-				 //  	// console.log(sessionStorage.getItem('marker'));
-
-				 //  	var session_marker0 = sessionStorage.getItem('marker');
-
-					// // console.log(JSON.stringify(session_marker0));
-					// console.log(session_marker0.title);
-
-
-				 //  	if (!sessionStorage.getItem('marker') === null){
-					// 	sessionStorage.removeItem('marker');
-					// }
-					// console.log("deleted session storage");
-					// var session_marker = sessionStorage.getItem('marker');
-
-					// console.log(JSON.stringify(session_marker));
-				  }
+				  }  //error function ends here
 				});
 				
 			} else {

@@ -1,14 +1,12 @@
 <ul>
 	<% answer.forum_answer_comments.each do |comment| %>
 	<li>
-		<p>
-			<%= comment.body %>
-		</p>
+		<%= comment.body %>
 
-		<p class="user_time">
-			<span class="forum-user"><%= link_to comment.user.first_name %></span>
+		<div class="user_time">
+			<span class="forum-user"><%= link_to comment.user.email %></span>
 			<span class="time"><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</span>
-		</p>
+		</div>
 		
 	</li>
 	<% end %>
