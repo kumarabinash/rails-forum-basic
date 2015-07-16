@@ -47,7 +47,7 @@
 	
 	
 	window.map = map;
-	console.log(map.markers);
+	// console.log(map.markers);
 
 	
 }(window, window.Mapper || (window.Mapper = {})));

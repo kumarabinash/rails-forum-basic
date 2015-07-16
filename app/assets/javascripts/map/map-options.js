@@ -6,6 +6,6 @@
 			lng: 77.6067617
 		},
 		zoom: 12,
-		disableDefaultUI: false
+		disableDefaultUI: true
 	}
 })(window, window.Mapper || (window.Mapper = {}));

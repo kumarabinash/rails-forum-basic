@@ -1,4 +1,6 @@
 class MapsController < ApplicationController
+	after_filter :store_location, except: [:store_url]
+
 	def index
 		@markers = Marker.all
 
@@ -27,6 +29,17 @@ class MapsController < ApplicationController
 			format.json {render json: @markers }
 		end
 	end
+
+
+	def store_url
+		if params[:previous_url]
+	  		session[:previous_url] = params[:previous_url] unless request.fullpath =~ /\/users/
+	  	end
+
+	  	respond_to do |format|
+	  		format.json {render json: "successfully stored url in map controller"}
+	  	end
+  	end
 
 
 end

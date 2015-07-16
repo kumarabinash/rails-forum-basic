@@ -26,6 +26,11 @@ controllers: {omniauth_callbacks: "authentications",
               registrations: "users/registrations",
               sessions: "users/sessions" }
 
+
+
+
+# MARKERS
+  post 'prevurl' => "maps#store_url"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

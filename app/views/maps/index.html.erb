@@ -1,16 +1,21 @@
 
 <div class="fetchMarkerButtons">
-	<button id="fetchNil" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">None</button>
-	<button id="fetchAll" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">All</button>
-	<button id="fetchHousing" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Housing</button>
-	<button id="fetchStudy" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Study</button>
-	<button id="fetchTravel" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Travel</button>
+	<button id="fetchAll" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">All</button><br />
+	<button id="fetchHousing" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Housing</button><br />
+	<button id="fetchStudy" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Study</button><br />
+	<button id="fetchTravel" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Travel</button><br />
+	<button id="fetchNil" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">None</button><br />
+	
+	<!-- <ul id="marker-ul">
+		
+	</ul> -->
+</div>
+
+<div class="addMarker">
 	<button id="triggerModal" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
 	  <i class="material-icons">add</i>
+	  <div class="mdl-tooltip" for="triggerModal">Add Your Marker</div>
 	</button>
-	<ul id="marker-ul">
-		
-	</ul>
 </div>
 
 
@@ -43,7 +48,7 @@
 
 <script type="text/javascript">
 
-var myContent = "<form>\
+var myContent = "<div><form>\
 		<div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo'>\
 			<input class='mdl-textfield__input' type='text' id='form_marker_type'/>\
 			<label class='mdl-textfield__label' for='sample3'>Type of Marker</label>\
@@ -65,19 +70,42 @@ var myContent = "<form>\
 			<label class='mdl-textfield__label' for='sample3'>Expiry Date</label>\
 		</div>\
 	</form>\
-	<button id='submitMarkerData'>Button</button>";
+	<button id='submitMarkerData' class'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Button</button> </div>";
 
 var myModal = new Modal({
   content: myContent
 });
 
-var triggerButton = document.getElementById('triggerModal');
 
-triggerButton.addEventListener('click', function() {
-	myModal.open();
-	var doc = document;
-	var butt = doc.getElementById('submitMarkerData');
-	butt.addEventListener("click", function(e){
+var openModal = function(modal){
+	modal.open();
+
+
+	// Set value if available in session
+	//Use JSON to retrieve the stored data and convert it 
+	var storedData = sessionStorage.getItem("marker");
+	if (storedData) {
+	  marker = JSON.parse(storedData);
+	  // console.log(marker);
+	  // var doc = document;
+		document.getElementById('form_address').value = marker.address;
+		document.getElementById('form_body').value = marker.description;
+		document.getElementById('form_title').value = marker.title;
+		document.getElementById('form_expiry_date').value = marker.expiry_date;
+		document.getElementById('form_marker_type').value = marker.marker_type;
+		sessionStorage.removeItem("marker");
+	}
+
+	
+
+
+
+
+	var submitMarkerData = document.getElementById('submitMarkerData');
+	submitMarkerData.addEventListener("click", function(e){
+
+		// var doc = document;
+
 		e.preventDefault();
 		var address = document.getElementById('form_address').value,
 			description = document.getElementById('form_body').value,
@@ -122,20 +150,135 @@ triggerButton.addEventListener('click', function() {
 						draggable: true,
 						content: "<div class='title'>" + data.title + "</div><div class='body'>" + data.body  + "</div>"
 					});
+					if (!sessionStorage.getItem('marker') === null){
+						sessionStorage.removeItem('marker');
+					}
 					myModal.close();
 				  },
 				  error: function(data){
 				  	console.log(data);
+				  	response = JSON.parse(data.responseText);
+				  	// console.log(response.error);
+				  	if(response.error){
+				  		if(response.error == "You need to sign in or sign up before continuing."){
+					  		// alert("You're not logged in, you'll be redirected to Login page!");
+					  		// Setting Previous url in server
+					  		$.ajax({
+					  			url: "<%= prevurl_path %>",
+					  			type: "post",
+					  			data: {
+					  				previous_url: "/maps?set_marker=true"
+					  			},
+					  			dataType: 'JSON',
+					  			success: function(data){
+					  				console.log("successfully set previous_url");
+					  			},
+					  			error: function(data){
+					  				// console.log(data);
+					  				console.log("not successfully set previous_url");
+					  			}
+					  		});
+
+					  		var marker = {
+					  			address: address,
+							  	title: title, 
+							  	marker_type: marker_type,
+							  	description: description,
+							  	lat: lat,
+							  	lng: lng,
+							  	expiry_date: expiry_date
+					  		};
+
+							// store array data to the session storage
+							sessionStorage.setItem("marker",  JSON.stringify(marker));
+
+							
+
+					  		alert("You're not logged in, you'll be redirected to Login page!");
+					  		window.location = "<%= new_user_session_path %>";
+					  	}
+				  	}
+				  	
+				 //  	var marker = {
+				  	// 	"address": address,
+					  // 	"title": title, 
+					  // 	"marker_type": marker_type,
+					  // 	"description": description,
+					  // 	"lat": lat,
+					  // 	"lng": lng,
+					  // 	"expiry_date": expiry_date
+				  	// }
+				 //  	// console.log(data.responseText);
+				 //  	// console.log(data.responseText.error);
+				  	
+				 //  	// console.log(marker);
+				 //  	sessionStorage.setItem('marker', marker);
+				 //  	// console.log(sessionStorage.getItem('marker'));
+
+				 //  	var session_marker0 = sessionStorage.getItem('marker');
+
+					// // console.log(JSON.stringify(session_marker0));
+					// console.log(session_marker0.title);
+
+
+				 //  	if (!sessionStorage.getItem('marker') === null){
+					// 	sessionStorage.removeItem('marker');
+					// }
+					// console.log("deleted session storage");
+					// var session_marker = sessionStorage.getItem('marker');
+
+					// console.log(JSON.stringify(session_marker));
 				  }
 				});
 				
 			} else {
-				console.log("not successful");
+				console.log("Unable to geocode your address. Please provide a valid address!");
 			}
-		});
 
+		});	
 	});
+};
+
+
+
+
+
+
+// ACCESSING GET VARIABLE IN JAVASCRIPT
+var $_GET = {};
+if(document.location.toString().indexOf('?') !== -1) {
+    var query = document.location
+                   .toString()
+                   // get the query string
+                   .replace(/^.*?\?/, '')
+                   // and remove any existing hash string (thanks, @vrijdenker)
+                   .replace(/#.*$/, '')
+                   .split('&');
+
+    for(var i=0, l=query.length; i<l; i++) {
+       var aux = decodeURIComponent(query[i]).split('=');
+       $_GET[aux[0]] = aux[1];
+    }
+}
+
+
+//get the 'index' query parameter
+// alert($_GET['hello']);
+if($_GET['set_marker']){
+	alert("tis there!");
+	openModal(myModal);
+}
+
+var triggerButton = document.getElementById('triggerModal');
+
+triggerButton.addEventListener('click', function() {
+	openModal(myModal);
 });
+
+
+
+
+
 
 
 
@@ -171,9 +314,9 @@ triggerButton.addEventListener('click', function() {
 			},
 			dataType: 'JSON',
 			success: function(data){
-				console.log(data);
-				var ul = document.getElementById('marker-ul');
-				ul.innerHTML = "";
+				// console.log(data);
+				// var ul = document.getElementById('marker-ul');
+				// ul.innerHTML = "";
 				for(var i = 0; i < data.length; i++){
 
 					// FOR TESTIG PURPOSE, CAN BE USED TO LIST MARKES INSTEAD OF SHOWING THEM ON THE MARKER

@@ -9,11 +9,12 @@ body{
 }
 
 main{
-	padding:0;
-
+	margin: 0;
+	padding: 0;
 }
+
 .mdl-cell{
-	/*margin: 0;*/
+	margin: 0;
 	/*background: #3F51B5;*/
 }
 
@@ -177,15 +178,32 @@ h5{
 
 
 	.fetchMarkerButtons{
+		padding: 10px;
 		position: absolute;
 		z-index: 99;
 		/*display: none;*/
 	}
+		.fetchMarkerButtons button{
+			margin-bottom: 10px;
+			width: 80px;
+		}
+
+	.addMarker{
+		position: absolute;
+		bottom:30px;
+		right:30px;
+		padding: 20px;
+		z-index: 99;
+	}
+
       html, body, #map-canvas { 
       	height: 100%; margin: 0; padding: 0;
       }
       #map-canvas{
+      	position: absolute;
       	width: 100%;
+      	height: calc(100% - 62px);
+
       }
 
    
