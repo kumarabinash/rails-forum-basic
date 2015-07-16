@@ -19,6 +19,44 @@
 <% end %>
 <br />
 
+
+<hr />
+
+
+<h2>Register for memebership</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+    <% if session[:omniauth] %>
+      <% if session[:omniauth]['provider'] == 'facebook' %>
+        <%= f.email_field :email, autofocus: true, value: session[:omniauth]['info']['email'], class: "mdl-textfield__input" %>
+      <% end %>
+    <% end %>
+    <%= f.email_field :email, autofocus: true, class: "mdl-textfield__input" %>
+    <%= f.label :email, class: "mdl-textfield__label" %>
+  </div>
+  <br />
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+    
+    <%= f.password_field :password, autocomplete: "off", class: "mdl-textfield__input" %>
+    <%= f.label :password, class: "mdl-textfield__label" %>
+  </div>
+
+<br />
+
+ <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+    
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "mdl-textfield__input" %>
+    <%= f.label :password_confirmation, class: "mdl-textfield__label" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up", class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" %>
+  </div>
+<% end %>
 <%= render "devise/shared/links" %>
 
 <%= debug session[:previous_url] %>

@@ -142,6 +142,7 @@ var openModal = function(modal){
 				  },
 				  dataType: 'JSON',                   
 				  success: function(data){
+				  	console.log(data);
 				  	window.map.addMarker({
 						lat: parseFloat(data.lat),
 						lng: parseFloat(data.lng),
