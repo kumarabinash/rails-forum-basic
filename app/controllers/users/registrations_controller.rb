@@ -28,14 +28,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.create(sign_up_params)
 
     if @user.save
-      if session[:omniauth]      
-        @user.authentications.create!(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'], :token => session[:omniauth]['credentials']['token'])
+      # if session[:omniauth]      
+        @authentication = @user.authentications.create!(:provider => session[:omniauth]['provider'], :uid => session[:omniauth]['uid'], :token => session[:omniauth]['credentials']['token'])
 
-        UserDetail.create!(:user_id => @user.id, :first_name => session[:omniauth]['info']['first_name'],
+        @user_detail = UserDetail.create!(:user_id => @user.id, :first_name => session[:omniauth]['info']['first_name'],
           :last_name => session[:omniauth]['info']['last_name'],
           :image_url => session[:omniauth]['info']['image']
           )
-      end
+      # end
       sign_in_and_redirect @user
     end
   end
