@@ -19,7 +19,6 @@ main{
 }
 
 
-
 .mdl-cell--12-col {
     width: 100%;
 }
@@ -27,6 +26,11 @@ main{
 .mdl-cell{
 	margin: 0;
 	/*background: #3F51B5;*/
+}
+
+.mdl-textfield__input{
+	background: white;
+	padding:5px;
 }
 
 .sidebar{
@@ -253,7 +257,7 @@ li.question .image-circle{
 .scotch-overlay
 {
     position: fixed;
-    z-index: 9998;
+    z-index: 101;
     top: 0;
     left: 0;
 
@@ -271,10 +275,15 @@ li.question .image-circle{
     background: rgba(0,0,0,.6);
 }
 
+
+.pac-container{
+	z-index: 103;
+}
+
 .scotch-modal
 {
     position: absolute;
-    z-index: 9999;
+    z-index: 102;
     top: 50%;
     left: 50%;
 

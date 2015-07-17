@@ -33,7 +33,7 @@
 
 <% content_for :footer_script_includes do %>
 
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPP7GbQmDJN-0dQAk3FPVhynSF3-oeByM"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPP7GbQmDJN-0dQAk3FPVhynSF3-oeByM&signed_in=true&libraries=places"></script>
 	<%= javascript_include_tag "map/list" %>
 	<%= javascript_include_tag "map/mapper" %>
 	<%= javascript_include_tag "map/map-options" %>
@@ -63,7 +63,6 @@ var myContent = "<div><form>\
 		</div>\
 		<div class='mdl-textfield mdl-js-textfield textfield-demo'>\
 			<textarea class='mdl-textfield__input' type='text' rows= '3' id='form_address' ></textarea>\
-			<label class='mdl-textfield__label' for='sample5'>Address</label>\
 		</div>\
 		<div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo'>\
 			<input class='mdl-textfield__input' type='text' id='form_expiry_date'/>\
@@ -80,23 +79,11 @@ var myModal = new Modal({
 var openModal = function(modal){
 	modal.open();
 
+	var input = document.getElementById('form_address');
+	var options = {componentRestrictions: {country: 'in'}};
+    
+	new google.maps.places.Autocomplete(input, options);
 
-	// Set value if available in session
-	//Use JSON to retrieve the stored data and convert it 
-	var storedData = sessionStorage.getItem("marker");
-	if (storedData) {
-	  marker = JSON.parse(storedData);
-	  // console.log(marker);
-	  // var doc = document;
-		document.getElementById('form_address').value = marker.address;
-		document.getElementById('form_body').value = marker.description;
-		document.getElementById('form_title').value = marker.title;
-		document.getElementById('form_expiry_date').value = marker.expiry_date;
-		document.getElementById('form_marker_type').value = marker.marker_type;
-		sessionStorage.removeItem("marker");
-	}
-
-	
 
 
 
